@@ -20,19 +20,18 @@
     "@types/node": "^12.7.12",
     "@types/react": "^16.9.5",
     "@types/react-dom": "^16.9.1",
+    "@types/styled-components": "^4.1.19",
     "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "^8.0.6",
-    "css-loader": "^3.2.0",
+    "babel-plugin-styled-components": "^1.10.6",
     "express": "^4.17.1",
     "file-loader": "^4.2.0",
     "html-webpack-plugin": "^3.2.0",
     "image-webpack-loader": "^6.0.0",
     "jest": "^24.9.0",
-    "node-sass": "^4.12.0",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-hot-loader": "^4.12.15",
-    "sass-loader": "^8.0.0",
     "style-loader": "^1.0.0",
     "tslint": "^5.20.0",
     "typescript": "^3.6.4",
@@ -43,5 +42,8 @@
     "webpack-dev-server": "^3.8.2",
     "webpack-merge": "^4.2.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "jest-styled-components": "^7.0.0-beta.1",
+    "styled-components": "^5.0.0-beta.9"
+  }
 }
