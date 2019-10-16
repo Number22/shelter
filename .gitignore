@@ -13,6 +13,7 @@
 /dist
 
 # misc
+/.idea
 .history
 .DS_Store
 .env.local

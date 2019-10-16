@@ -5,12 +5,18 @@
   "license": "MIT",
   "scripts": {
     "build": "yarn run clean-dist && webpack -p --config=configs/webpack/prod.js",
-    "lint": "tslint './src/**/*.ts*' --format stylish --project . --force",
+    "lint": "tslint './src/**/*.{js,ts,tsx}' --format stylish --project . --force --quiet --fix",
+    "lint:css": "stylelint './src/**/*.tsx'",
     "start": "yarn run start-dev",
     "start-dev": "webpack-dev-server --config=configs/webpack/dev.js",
     "start-prod": "yarn run build && node express.js",
     "test": "jest --watch --coverage --config=configs/jest.json",
     "clean-dist": "rimraf dist/*"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
   },
   "devDependencies": {
     "@babel/cli": "^7.6.4",
@@ -28,17 +34,30 @@
     "express": "^4.17.1",
     "file-loader": "^4.2.0",
     "html-webpack-plugin": "^3.2.0",
+    "husky": "^3.0.9",
     "image-webpack-loader": "^6.0.0",
     "jest": "^24.9.0",
     "jest-styled-components": "^7.0.0-beta.1",
+    "prettier": "^1.18.2",
+    "pretty-quick": "^2.0.0",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-hot-loader": "^4.12.15",
     "rimraf": "^3.0.0",
-    "style-loader": "^1.0.0",
+    "stylelint": "^11.1.1",
+    "stylelint-config-prettier": "^6.0.0",
+    "stylelint-config-recommended": "^3.0.0",
+    "stylelint-config-styled-components": "^0.1.1",
+    "stylelint-prettier": "^1.1.1",
+    "stylelint-processor-styled-components": "^1.8.0",
     "tslint": "^5.20.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-eslint-rules": "^5.4.0",
+    "tslint-plugin-prettier": "^2.0.1",
+    "tslint-react": "^4.1.0",
     "typescript": "^3.6.4",
     "uglifyjs-webpack-plugin": "^2.2.0",
+    "utility-types": "^3.8.0",
     "webpack": "^4.41.1",
     "webpack-cli": "^3.3.9",
     "webpack-dev-middleware": "^3.7.2",
@@ -46,6 +65,10 @@
     "webpack-merge": "^4.2.2"
   },
   "dependencies": {
-    "styled-components": "^5.0.0-beta.9"
+    "axios": "^0.19.0",
+    "axios-morphism": "^1.0.9",
+    "redux-saga": "^1.1.1",
+    "styled-components": "^5.0.0-beta.9",
+    "typesafe-actions": "^4.4.2"
   }
 }
