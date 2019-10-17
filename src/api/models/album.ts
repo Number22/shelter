@@ -1,4 +1,4 @@
-import { AlbumTrack, IAlbumTrackApi } from './album-track';
+import { AlbumTrack, IAlbumTrackApi } from './';
 import { IImageApi, Image } from './image';
 import { ITagApi } from './tag';
 import { IWikiApi, Wiki } from './wiki';
@@ -45,8 +45,14 @@ export class Album {
     this.playcount = data.playcount;
     this.tags = data.tags;
     this.url = data.url;
-    this.wiki = new Wiki(data.wiki);
-    this.tracks = data.tracks.track.map(item => new AlbumTrack(item));
     this.rank = data['@attr'].rank;
+
+    if (data.wiki) {
+      this.wiki = new Wiki(data.wiki);
+    }
+
+    if (data.tracks) {
+      this.tracks = data.tracks.track.map(item => new AlbumTrack(item));
+    }
   }
 }

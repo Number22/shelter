@@ -1,6 +1,7 @@
 import { put, select, takeEvery } from 'redux-saga/effects';
 
 import { client } from '../../api/client';
+import { Album, Artist, IAlbumApi, IArtistApi, ITrackApi, Track } from '../../api/models';
 import { fetchTopAlbumsAction, fetchTopArtistsAction, fetchTopTracksAction } from './user.action';
 
 export default function* watchFun() {
@@ -11,7 +12,14 @@ export default function* watchFun() {
 
 function* fetchTopAlbumsSaga(action: ReturnType<typeof fetchTopAlbumsAction.request>) {
   try {
-    const data = yield client.get(action.payload);
+    const response = yield client.get('', {
+      params: {
+        method: 'user.gettopalbums',
+        ...action.payload,
+      },
+    });
+
+    const data = response.data.topalbums.album.map((item: IAlbumApi) => new Album(item));
 
     yield put(fetchTopAlbumsAction.success(data));
   } catch (e) {
@@ -21,7 +29,14 @@ function* fetchTopAlbumsSaga(action: ReturnType<typeof fetchTopAlbumsAction.requ
 
 function* fetchTopArtistsSaga(action: ReturnType<typeof fetchTopArtistsAction.request>) {
   try {
-    const data = yield client.get(action.payload);
+    const response = yield client.get('', {
+      params: {
+        method: 'user.gettopartists',
+        ...action.payload,
+      },
+    });
+
+    const data = response.data.topartists.artist.map((item: IArtistApi) => new Artist(item));
 
     yield put(fetchTopArtistsAction.success(data));
   } catch (e) {
@@ -31,7 +46,14 @@ function* fetchTopArtistsSaga(action: ReturnType<typeof fetchTopArtistsAction.re
 
 function* fetchTopTracksSaga(action: ReturnType<typeof fetchTopTracksAction.request>) {
   try {
-    const data = yield client.get(action.payload);
+    const response = yield client.get('', {
+      params: {
+        method: 'user.gettopalbums',
+        ...action.payload,
+      },
+    });
+
+    const data = response.data.toptracks.track.map((item: ITrackApi) => new Track(item));
 
     yield put(fetchTopTracksAction.success(data));
   } catch (e) {

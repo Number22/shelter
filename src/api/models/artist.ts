@@ -50,14 +50,25 @@ export class Artist {
     this.mbid = data.mbid;
     this.streamable = data.streamable;
     this.url = data.url;
-    this.tags = data.tags.tag;
-    this.similar = data.similar.artist.map(item => new SimialrArtist(item));
     this.images = data.image.map(item => new Image(item));
-    this.stats = {
-      listeners: data.stats.listeners,
-      playCount: data.stats.playcount,
-    };
+
+    debugger;
     this.bio = new Wiki(data.bio);
     this.rank = data['@attr'].rank;
+
+    if (data.tags) {
+      this.tags = data.tags.tag;
+    }
+
+    if (data.similar) {
+      this.similar = data.similar.artist.map(item => new SimialrArtist(item));
+    }
+
+    if (data.stats) {
+      this.stats = {
+        listeners: data.stats.listeners,
+        playCount: data.stats.playcount,
+      };
+    }
   }
 }

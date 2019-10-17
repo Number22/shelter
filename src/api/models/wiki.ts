@@ -22,11 +22,12 @@ export class Wiki {
   };
 
   constructor(data: IWikiApi) {
-    const link = data.links.link;
-
     this.content = data.content;
     this.publicshed = data.publicshed;
     this.summary = data.summary;
-    this.link = { ...link, text: link['#text'] };
+
+    if (data.links) {
+      this.link = { ...data.links.link, text: data.links.link['#text'] };
+    }
   }
 }
