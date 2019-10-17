@@ -1,19 +1,19 @@
 import { IImageApi, Image } from './image';
-import { ISimilarArtist, SimialrArtist } from './similar-artist';
-import { ITag } from './tag';
+import { ISimilarArtistApi, SimialrArtist } from './similar-artist';
+import { ITagApi } from './tag';
 import { IWikiApi, Wiki } from './wiki';
 
-export interface IArtist {
+export interface IArtistApi {
   ontour: boolean;
   name: string;
   mbid: string;
   streamable: boolean;
   url: string;
   tags: {
-    tag: ITag[];
+    tag: ITagApi[];
   };
   similar: {
-    artist: ISimilarArtist[];
+    artist: ISimilarArtistApi[];
   };
   image: IImageApi[];
   playcount: number;
@@ -33,7 +33,7 @@ export class Artist {
   public mbid: string;
   public streamable: boolean;
   public url: string;
-  public tags: ITag[];
+  public tags: ITagApi[];
   public similar: SimialrArtist[];
   public images: Image[];
   public playCount: number;
@@ -44,7 +44,7 @@ export class Artist {
   public bio: Wiki;
   public rank: string;
 
-  constructor(data: IArtist) {
+  constructor(data: IArtistApi) {
     this.onTour = data.ontour;
     this.name = data.name;
     this.mbid = data.mbid;

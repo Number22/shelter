@@ -1,4 +1,4 @@
-export interface ITag {
+export interface ITagApi {
   name: string;
   url: string;
 }

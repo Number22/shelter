@@ -1,8 +1,8 @@
 import { IImageApi, Image } from './image';
-import { ITag } from './tag';
+import { ITagApi } from './tag';
 import { IWikiApi, Wiki } from './wiki';
 
-export interface ITrack {
+export interface ITrackApi {
   duration: number;
   listeners: number;
   mbid: string;
@@ -10,7 +10,7 @@ export interface ITrack {
   playcount: number;
   url: string;
   toptags: {
-    tag: ITag[];
+    tag: ITagApi[];
   };
   wiki: IWikiApi;
   streamable: {
@@ -41,7 +41,7 @@ export class Track {
   public name: string;
   public playCount: number;
   public url: string;
-  public topTags: ITag[];
+  public topTags: ITagApi[];
   public wiki: Wiki;
   public streamable: string;
   public fullTrack: number;
@@ -59,7 +59,7 @@ export class Track {
     url: string;
   };
 
-  constructor(data: ITrack) {
+  constructor(data: ITrackApi) {
     this.duration = data.duration;
     this.listeners = data.listeners;
     this.mbid = data.mbid;

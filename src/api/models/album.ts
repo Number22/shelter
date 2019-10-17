@@ -1,6 +1,6 @@
 import { AlbumTrack, IAlbumTrackApi } from './album-track';
 import { IImageApi, Image } from './image';
-import { ITag } from './tag';
+import { ITagApi } from './tag';
 import { IWikiApi, Wiki } from './wiki';
 
 export interface IAlbumApi {
@@ -12,7 +12,7 @@ export interface IAlbumApi {
   mbid: string;
   name: string;
   playcount: number;
-  tags: ITag[];
+  tags: ITagApi[];
   url: string;
   wiki: IWikiApi;
   tracks: {
@@ -30,7 +30,7 @@ export class Album {
   public mbid: string;
   public name: string;
   public playcount: number;
-  public tags: ITag[];
+  public tags: ITagApi[];
   public url: string;
   public wiki: Wiki;
   public tracks: AlbumTrack[];
