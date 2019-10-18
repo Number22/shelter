@@ -66,19 +66,27 @@ export class Track {
     this.name = data.name;
     this.playCount = data.playcount;
     this.url = data.url;
-    this.topTags = data.toptags.tag;
-    this.wiki = new Wiki(data.wiki);
-
     this.streamable = data.streamable['#text'];
     this.fullTrack = data.streamable.fulltrack;
     this.artist = data.artist;
-    this.album = {
-      artist: data.album.artist,
-      images: data.album.image.map(item => new Image(item)),
-      mbid: data.album.mbid,
-      position: data.album['@attr'].position,
-      title: data.album.title,
-      url: data.album.url,
-    };
+
+    if (data.toptags) {
+      this.topTags = data.toptags.tag;
+    }
+
+    if (data.wiki) {
+      this.wiki = new Wiki(data.wiki);
+    }
+
+    if (data.album) {
+      this.album = {
+        artist: data.album.artist,
+        images: data.album.image.map(item => new Image(item)),
+        mbid: data.album.mbid,
+        position: data.album['@attr'].position,
+        title: data.album.title,
+        url: data.album.url,
+      };
+    }
   }
 }

@@ -6,17 +6,17 @@ import { fetchTopAlbumsAction, fetchTopArtistsAction, fetchTopTracksAction } fro
 export interface IUserState {
   topAlbums: {
     data: Album[];
-    error: Error;
+    error?: Error;
     isLoading: boolean;
   };
   topArtists: {
     data: Artist[];
-    error: Error;
+    error?: Error;
     isLoading: boolean;
   };
   topTracks: {
     data: Track[];
-    error: Error;
+    error?: Error;
     isLoading: boolean;
   };
 }
@@ -24,17 +24,17 @@ export interface IUserState {
 const initialState: IUserState = {
   topAlbums: {
     data: [],
-    error: null,
+    error: undefined,
     isLoading: false,
   },
   topArtists: {
     data: [],
-    error: null,
+    error: undefined,
     isLoading: false,
   },
   topTracks: {
     data: [],
-    error: null,
+    error: undefined,
     isLoading: false,
   },
 };
@@ -44,7 +44,7 @@ const fetchTopAlbumsReducer = createReducer<IUserState>(initialState)
     ...state,
     topAlbums: {
       data: [],
-      error: null,
+      error: undefined,
       isLoading: true,
     },
   }))
@@ -70,7 +70,7 @@ const fetchTopArtistsReducer = createReducer<IUserState>(initialState)
     ...state,
     topArtists: {
       data: [],
-      error: null,
+      error: undefined,
       isLoading: true,
     },
   }))
@@ -78,7 +78,7 @@ const fetchTopArtistsReducer = createReducer<IUserState>(initialState)
     ...state,
     topArtists: {
       data: action.payload,
-      error: null,
+      error: undefined,
       isLoading: false,
     },
   }))
@@ -96,7 +96,7 @@ const fetchTopTracksReducer = createReducer<IUserState>(initialState)
     ...state,
     topTracks: {
       data: [],
-      error: null,
+      error: undefined,
       isLoading: true,
     },
   }))
@@ -104,7 +104,7 @@ const fetchTopTracksReducer = createReducer<IUserState>(initialState)
     ...state,
     topTracks: {
       data: action.payload,
-      error: null,
+      error: undefined,
       isLoading: false,
     },
   }))

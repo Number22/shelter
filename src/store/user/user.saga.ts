@@ -4,7 +4,7 @@ import { client } from '../../api/client';
 import { Album, Artist, IAlbumApi, IArtistApi, ITrackApi, Track } from '../../api/models';
 import { fetchTopAlbumsAction, fetchTopArtistsAction, fetchTopTracksAction } from './user.action';
 
-export default function* watchFun() {
+export default function* watchUser() {
   yield takeEvery(fetchTopAlbumsAction.request, fetchTopAlbumsSaga);
   yield takeEvery(fetchTopArtistsAction.request, fetchTopArtistsSaga);
   yield takeEvery(fetchTopTracksAction.request, fetchTopTracksSaga);
@@ -48,7 +48,7 @@ function* fetchTopTracksSaga(action: ReturnType<typeof fetchTopTracksAction.requ
   try {
     const response = yield client.get('', {
       params: {
-        method: 'user.gettopalbums',
+        method: 'user.gettoptracks',
         ...action.payload,
       },
     });

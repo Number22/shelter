@@ -5,6 +5,7 @@
     "noImplicitAny": false,
     "module": "commonjs",
     "moduleResolution": "node",
+    "strictNullChecks": true,
     "target": "es5",
     "jsx": "react",
     "lib": ["es5", "es6", "dom"]

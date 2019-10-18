@@ -52,9 +52,13 @@ export class Artist {
     this.url = data.url;
     this.images = data.image.map(item => new Image(item));
 
-    debugger;
-    this.bio = new Wiki(data.bio);
-    this.rank = data['@attr'].rank;
+    if (data['@attr']) {
+      this.rank = data['@attr'].rank;
+    }
+
+    if (data.bio) {
+      this.bio = new Wiki(data.bio);
+    }
 
     if (data.tags) {
       this.tags = data.tags.tag;

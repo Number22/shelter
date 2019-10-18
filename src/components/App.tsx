@@ -3,6 +3,11 @@ import { hot } from 'react-hot-loader';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
+import {
+  chartFetchTopArtistsAction,
+  chartFetchTopTagsAction,
+  chartFetchTopTracksAction,
+} from '../store/chart/chart.action';
 import { IRootStateType } from '../store/reducers';
 import { fetchTopAlbumsAction, fetchTopArtistsAction, fetchTopTracksAction } from '../store/user/user.action';
 import { IUserState } from '../store/user/user.reducer';
@@ -27,6 +32,10 @@ const App = () => {
     dispatch(fetchTopAlbumsAction.request({ user: 'Dream__Effect' }));
     dispatch(fetchTopArtistsAction.request({ user: 'Dream__Effect' }));
     dispatch(fetchTopTracksAction.request({ user: 'Dream__Effect' }));
+
+    dispatch(chartFetchTopArtistsAction.request({}));
+    dispatch(chartFetchTopTagsAction.request({}));
+    dispatch(chartFetchTopTracksAction.request({}));
   }, []);
 
   return (

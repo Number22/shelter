@@ -1,4 +1,4 @@
-export interface ITopRequest {
+export interface IUserTopRequest {
   user: string;
   period?: string;
   limit?: number;
