@@ -1,6 +1,6 @@
-const SpotifyWebApi = require('spotify-web-api-js');
+import * as SpotifyWebApi from 'spotify-web-api-js';
 
-const spotifyApi = new SpotifyWebApi();
+const spotifyApi = new (SpotifyWebApi as any)();
 
 export default spotifyApi;
 
