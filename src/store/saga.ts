@@ -1,8 +1,7 @@
 import { all, fork } from 'redux-saga/effects';
 
-import chartSaga from './chart/chart.saga';
-import userSaga from './user/user.saga';
+import searchSaga from './search/search.saga';
 
 export default function* rootSaga() {
-  yield all([userSaga, chartSaga].map(fork));
+  yield all([searchSaga].map(fork));
 }

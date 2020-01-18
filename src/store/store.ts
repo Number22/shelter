@@ -9,7 +9,7 @@ import { rootReducer } from './reducers';
 export const history = createBrowserHistory();
 const sagaMiddleware = createSagaMiddleware();
 const initialState = {};
-const enhancers = [];
+const enhancers: any[] = [];
 const middleware = [routerMiddleware(history), sagaMiddleware];
 
 if (process.env.NODE_ENV === 'development') {

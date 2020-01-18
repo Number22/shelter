@@ -1,7 +1,7 @@
-import { RouterAction, UserAction, ChartAction } from './actions';
+import { RouterAction, SearchAction } from './actions';
 
 declare module 'typesafe-actions' {
-  export type RootAction = RouterAction | UserAction | ChartAction;
+  export type RootAction = RouterAction | SearchAction;
 
   interface Types {
     RootAction: RootAction;

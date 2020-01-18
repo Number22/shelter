@@ -3,14 +3,9 @@ import { hot } from 'react-hot-loader';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import {
-  chartFetchTopArtistsAction,
-  chartFetchTopTagsAction,
-  chartFetchTopTracksAction,
-} from '../store/chart/chart.action';
 import { IRootStateType } from '../store/reducers';
-import { fetchTopAlbumsAction, fetchTopArtistsAction, fetchTopTracksAction } from '../store/user/user.action';
-import { IUserState } from '../store/user/user.reducer';
+import { searchAction } from '../store/search/search.action';
+import { ISearchRequest } from '../store/search/search.types';
 
 const reactLogo = require('./../assets/img/react_logo.svg');
 
@@ -26,16 +21,10 @@ const StyledApp = styled.div`
 
 const App = () => {
   const dispatch = useDispatch();
-  const user = useSelector<IRootStateType, IUserState>(state => state.user);
 
   React.useEffect(() => {
-    dispatch(fetchTopAlbumsAction.request({ user: 'Dream__Effect' }));
-    dispatch(fetchTopArtistsAction.request({ user: 'Dream__Effect' }));
-    dispatch(fetchTopTracksAction.request({ user: 'Dream__Effect' }));
-
-    dispatch(chartFetchTopArtistsAction.request({}));
-    dispatch(chartFetchTopTagsAction.request({}));
-    dispatch(chartFetchTopTracksAction.request({}));
+    const request: ISearchRequest = { query: 'deadmau5', types: ['album', 'artist', 'track'] };
+    dispatch(searchAction.request(request));
   }, []);
 
   return (
