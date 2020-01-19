@@ -19,12 +19,29 @@ const StyledApp = styled.div`
   }
 `;
 
-const App = () => {
+interface IAppProps {
+  musicInstance: MusicKit.MusicKitInstance;
+}
+
+const App = (props: IAppProps) => {
   const dispatch = useDispatch();
+  const { musicInstance } = props;
+
+  musicInstance.player.play();
+
+  musicInstance.authorize().then(() => {
+    musicInstance.player.play();
+  });
+
+  musicInstance.authorize().then(() => {
+    musicInstance.api.library.albums(null).then(cloudAlbums => {
+      console.log(cloudAlbums);
+    });
+  });
 
   React.useEffect(() => {
-    const request: ISearchRequest = { query: 'deadmau5', types: ['album', 'artist', 'track'] };
-    dispatch(searchAction.request(request));
+    // const request: ISearchRequest = { query: 'deadmau5', types: ['album', 'artist', 'track'] };
+    // dispatch(searchAction.request(request));
   }, []);
 
   return (
@@ -32,6 +49,8 @@ const App = () => {
       <h1>Hello World!</h1>
       <p>Foo to the barz</p>
       <img src={reactLogo} height="480" />
+      <button id="apple-music-authorize" />
+      <button id="apple-music-unauthorize" />
     </StyledApp>
   );
 };

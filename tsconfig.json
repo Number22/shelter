@@ -8,7 +8,8 @@
     "strictNullChecks": true,
     "target": "es5",
     "jsx": "react",
-    "lib": ["es5", "es6", "dom"]
+    "lib": ["es5", "es6", "dom"],
+    "typeRoots": ["node_modules/musickit-typescript", "node_modules/@types"]
   },
   "include": ["./src/**/*"],
   "awesomeTypescriptLoaderOptions": {

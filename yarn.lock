@@ -6575,6 +6575,11 @@ multimatch@^4.0.0:
     arrify "^2.0.1"
     minimatch "^3.0.4"
 
+musickit-typescript@^1.2.4:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/musickit-typescript/-/musickit-typescript-1.2.4.tgz#d055117e2c897c4ebc570f0d969ad31649744837"
+  integrity sha512-3+/20Pi2zOVAHfUFf631LU2NwaC/qEHBBksM+YQzQ/fff4tIMPX5WJ6We/WXmwTHkAkHIOEitJW4cRPnvVAq+A==
+
 nan@^2.12.1:
   version "2.14.0"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.14.0.tgz#7818f722027b2459a86f0295d434d1fc2336c52c"
@@ -8812,11 +8817,6 @@ split-string@^3.0.1, split-string@^3.0.2:
   dependencies:
     extend-shallow "^3.0.0"
 
-spotify-web-api-js@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/spotify-web-api-js/-/spotify-web-api-js-1.2.0.tgz#edfbbcf5a2727c1873c5a310a40f8f1f2b4ecb8a"
-  integrity sha512-S5Awpk/uDwbn5WQbZmnU3RG/Hi68yX6ElQy9ewUu+ZSWiswufp50Vfg7vvXPaRfflL5/p/SOaU2x1idNRrzADA==
-
 sprintf-js@~1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
@@ -9652,7 +9652,7 @@ typescript-tuple@^2.2.1:
   dependencies:
     typescript-compare "^0.0.2"
 
-typescript@^3.6.4:
+typescript@^3.7.5:
   version "3.7.5"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.7.5.tgz#0692e21f65fd4108b9330238aac11dd2e177a1ae"
   integrity sha512-/P5lkRXkWHNAbcJIiHPfRoKqyd7bsyCma1hZNUGfn20qm64T6ZBlrzprymeu918H+mB/0rIg2gGK/BXkhhYgBw==
