@@ -7,8 +7,6 @@ import { IRootStateType } from '../store/reducers';
 import { searchAction } from '../store/search/search.action';
 import { ISearchRequest } from '../store/search/search.types';
 
-const reactLogo = require('./../assets/img/react_logo.svg');
-
 const StyledApp = styled.div`
   font-family: helvetica, arial, sans-serif;
   padding: 2em;
@@ -37,6 +35,14 @@ const App = (props: IAppProps) => {
     musicInstance.api.library.albums(null).then(cloudAlbums => {
       console.log(cloudAlbums);
     });
+
+    musicInstance.api.library.artists(null).then(cloudArtists => {
+      console.log(cloudArtists);
+    });
+
+    musicInstance.api.recentPlayed().then(recentPlayed => {
+      console.log(recentPlayed);
+    });
   });
 
   React.useEffect(() => {
@@ -48,7 +54,6 @@ const App = (props: IAppProps) => {
     <StyledApp>
       <h1>Hello World!</h1>
       <p>Foo to the barz</p>
-      <img src={reactLogo} height="480" />
       <button id="apple-music-authorize" />
       <button id="apple-music-unauthorize" />
     </StyledApp>

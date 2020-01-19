@@ -1,3 +1,5 @@
+import { build, developerToken, projectName } from '../constants/music-kit';
+
 export default class MusicProvider {
   public static createInstance() {
     if (!MusicProvider.instance) {
@@ -11,11 +13,10 @@ export default class MusicProvider {
   public configure() {
     window.MusicKit.configure({
       app: {
-        build: '2020.01.20',
-        name: 'Explore music',
+        build,
+        name: projectName,
       },
-      developerToken:
-        'eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjcyNlozSDlEODMifQ.eyJpYXQiOjE1Nzk0NTAxNzQsImV4cCI6MTU5NTAwMjE3NCwiaXNzIjoiSkZOVEhVRDRYMiJ9.6LB9BSt21oiKi-gjY4LDN-MZMY1Ps6FQZkhUBXGE7N2MBSKgzLfcpENTq0zRZ9UBdyTBr9ApfrYTuyqhhL0kOQ',
+      developerToken,
     });
   }
 
