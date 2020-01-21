@@ -1,11 +1,15 @@
 // shared config (dev and prod)
-const {resolve} = require('path');
-const {CheckerPlugin} = require('awesome-typescript-loader');
+const { resolve } = require('path');
+const { CheckerPlugin } = require('awesome-typescript-loader');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
 
 module.exports = {
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
+    alias: {
+      '@app': path.join(__dirname, '../../src'),
+    },
   },
   context: resolve(__dirname, '../../src'),
   module: {
@@ -28,12 +32,9 @@ module.exports = {
       },
     ],
   },
-  plugins: [
-    new CheckerPlugin(),
-    new HtmlWebpackPlugin({template: 'index.html.ejs',}),
-  ],
+  plugins: [new CheckerPlugin(), new HtmlWebpackPlugin({ template: 'index.html.ejs' })],
   externals: {
-    'react': 'React',
+    react: 'React',
     'react-dom': 'ReactDOM',
   },
   performance: {
