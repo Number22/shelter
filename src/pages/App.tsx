@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { hot } from 'react-hot-loader';
 import styled from 'styled-components';
 
+import GlobalStyles from '@app/styles/global';
 import Footer from '../containers/Footer';
 
 const StyledApp = styled.div`
@@ -41,6 +42,7 @@ const App: FC<IAppProps> = ({ musicInstance }) => {
 
   return (
     <StyledApp>
+      <GlobalStyles />
       <h1>Hello World!</h1>
       <p>Foo to the barz</p>
       <button id="apple-music-authorize" />
