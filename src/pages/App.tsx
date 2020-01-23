@@ -5,15 +5,7 @@ import styled from 'styled-components';
 import GlobalStyles from '@app/styles/global';
 import Footer from '../containers/Footer';
 
-const StyledApp = styled.div`
-  font-family: helvetica, arial, sans-serif;
-  padding: 2em;
-  border: 5px solid red;
-
-  p {
-    background-color: yellow;
-  }
-`;
+const StyledApp = styled.div``;
 
 interface IAppProps {
   musicInstance: MusicKit.MusicKitInstance;
@@ -43,11 +35,7 @@ const App: FC<IAppProps> = ({ musicInstance }) => {
   return (
     <StyledApp>
       <GlobalStyles />
-      <h1>Hello World!</h1>
-      <p>Foo to the barz</p>
-      <button id="apple-music-authorize" />
-      <button id="apple-music-unauthorize" />
-      <Footer />
+      <Footer musicInstance={musicInstance} />
     </StyledApp>
   );
 };

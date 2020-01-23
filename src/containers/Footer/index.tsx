@@ -1,19 +1,58 @@
 import React, { FC } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import Button from '@app/components/Button';
-import HeartIcon from '@app/static/icons/heart-solid.svg';
 
-const Wrapper = styled.div``;
+import LeftPart from './LeftPart';
+import MainPart from './MainPart';
+import RightPart from './RightPart';
 
-interface IFooterProps {}
+const Wrapper = styled.div`
+  height: 100px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+`;
 
-const Footer: FC<IFooterProps> = ({}) => {
+const StyledLeftPart = styled(LeftPart)`
+  margin-right: auto;
+`;
+
+const StyledRightPart = styled(RightPart)`
+  margin-left: auto;
+`;
+
+const StyledMainPart = styled(MainPart)`
+  height: 100%;
+  min-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+`;
+
+interface IFooterProps {
+  musicInstance: MusicKit.MusicKitInstance;
+}
+
+const Footer: FC<IFooterProps> = ({ musicInstance }) => {
+  const onPlayHandle = () => {};
+  const onPauseHandle = () => {};
+  const onVolumeChangeHandle = (value: number) => {};
+  const onProgressChangeHandle = (value: number) => {};
+  const onForwardHandle = () => {};
+  const onBackwardHandle = () => {};
+
   return (
     <Wrapper>
-      <Button>
-        <HeartIcon width={16} height={16} />
-      </Button>
+      <StyledLeftPart />
+      <StyledMainPart
+        onVolumeChange={onVolumeChangeHandle}
+        onPause={onPauseHandle}
+        onPlay={onPauseHandle}
+        onProgressChange={onProgressChangeHandle}
+        onForward={onForwardHandle}
+        onBackward={onBackwardHandle}
+      />
+      <StyledRightPart />
     </Wrapper>
   );
 };

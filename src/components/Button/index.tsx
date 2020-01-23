@@ -11,7 +11,7 @@ const StyledButton = styled(ReakitButton)<{ theme: Theme }>`
   padding-top: 8px;
   padding-bottom: 8px;
   border-radius: 4px;
-  height: 32px;
+  height: 40px;
   width: 100%;
   user-select: none;
   outline: none;
@@ -30,19 +30,27 @@ const StyledButton = styled(ReakitButton)<{ theme: Theme }>`
   ${props => props.theme === 'primary' && css``}
 `;
 
+const ButtonContent = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 interface IButtonProps {
+  className?: string;
   children: ReactNode | string | number | undefined;
   disabled?: boolean | undefined;
   focusable?: boolean | undefined;
   theme?: Theme;
+  onClick?: () => void;
 }
 
-const Button: FC<IButtonProps> = ({ children, disabled, focusable, theme = 'transparent' }) => {
+const Button: FC<IButtonProps> = ({ className, children, disabled, focusable, theme = 'default', onClick }) => {
   React.useEffect(() => {}, []);
 
   return (
-    <StyledButton disabled={disabled} focusable={focusable} theme={theme}>
-      {children}
+    <StyledButton onClick={onClick} className={className} disabled={disabled} focusable={focusable} theme={theme}>
+      <ButtonContent>{children}</ButtonContent>
     </StyledButton>
   );
 };
