@@ -7,35 +7,13 @@ import Footer from '../containers/Footer';
 
 const StyledApp = styled.div``;
 
-interface IAppProps {
-  musicInstance: MusicKit.MusicKitInstance;
-}
+interface IAppProps {}
 
-const App: FC<IAppProps> = ({ musicInstance }) => {
-  musicInstance.player.play();
-
-  musicInstance.authorize().then(() => {
-    musicInstance.player.play();
-  });
-
-  musicInstance.authorize().then(() => {
-    musicInstance.api.library.albums(null).then(cloudAlbums => {
-      // console.log(cloudAlbums);
-    });
-
-    musicInstance.api.library.artists(null).then(cloudArtists => {
-      // console.log(cloudArtists);
-    });
-
-    musicInstance.api.recentPlayed().then(recentPlayed => {
-      // console.log(recentPlayed);
-    });
-  });
-
+const App: FC<IAppProps> = () => {
   return (
     <StyledApp>
       <GlobalStyles />
-      <Footer musicInstance={musicInstance} />
+      <Footer />
     </StyledApp>
   );
 };

@@ -8,13 +8,9 @@ import { store } from './store/store';
 
 const rootEl = document.getElementById('root');
 
-const instance = MusicProvider.createInstance();
-instance.configure();
-const musicInstance = instance.getMusicInstance();
-
 render(
   <Provider store={store}>
-    <App musicInstance={musicInstance} />
+    <App />
   </Provider>,
   rootEl,
 );

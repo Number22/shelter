@@ -29,11 +29,9 @@ const StyledMainPart = styled(MainPart)`
   margin-right: auto;
 `;
 
-interface IFooterProps {
-  musicInstance: MusicKit.MusicKitInstance;
-}
+interface IFooterProps {}
 
-const Footer: FC<IFooterProps> = ({ musicInstance }) => {
+const Footer: FC<IFooterProps> = () => {
   const onPlayHandle = () => {};
   const onPauseHandle = () => {};
   const onVolumeChangeHandle = (value: number) => {};
