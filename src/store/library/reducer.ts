@@ -11,7 +11,7 @@ import {
   getSong,
   getSongs,
   search,
-} from './library.action';
+} from '.';
 
 export interface ILibraryState {
   musicVideos: MusicKit.Resource[];

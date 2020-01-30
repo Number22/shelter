@@ -1,7 +1,7 @@
 import { connectRouter, RouterAction, RouterState } from 'connected-react-router';
 import { History } from 'history';
 import { combineReducers, Store } from 'redux';
-import { ILibraryState, libraryReducer } from './library/library.reducer';
+import { ILibraryState, libraryReducer } from './library/reducer';
 
 export interface IRootStateType {
   router: RouterState;

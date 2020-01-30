@@ -12,11 +12,11 @@ import {
   getSong,
   getSongs,
   search,
-} from './library.action';
+} from '.';
 
 const instance = MusicProvider.createInstance();
 instance.configure();
-const musicInstance = instance.getMusicInstance();
+const musicInstance: MusicKit.MusicKitInstance = instance.getMusicInstance();
 
 export default function* watchChart() {
   yield takeEvery(getAlbum.request, getAlbumSaga);
@@ -35,7 +35,7 @@ export default function* watchChart() {
 function* getAlbumSaga(action: ReturnType<typeof getAlbum.request>) {
   try {
     const { id, parameters } = action.payload;
-    const response = yield musicInstance.library.getAlbum(id, parameters);
+    const response = yield musicInstance.api.library.album(id, parameters);
 
     const data = response;
 
@@ -48,7 +48,7 @@ function* getAlbumSaga(action: ReturnType<typeof getAlbum.request>) {
 function* getAlbumsSaga(action: ReturnType<typeof getAlbums.request>) {
   try {
     const { ids, parameters } = action.payload;
-    const response = yield musicInstance.library.getAlbums(ids, parameters);
+    const response = yield musicInstance.api.library.albums(ids, parameters);
 
     const data = response;
 
@@ -61,7 +61,7 @@ function* getAlbumsSaga(action: ReturnType<typeof getAlbums.request>) {
 function* getArtistSaga(action: ReturnType<typeof getArtist.request>) {
   try {
     const { id, parameters } = action.payload;
-    const response = yield musicInstance.library.getArtist(id, parameters);
+    const response = yield musicInstance.api.library.artist(id, parameters);
 
     const data = response;
 
@@ -74,7 +74,7 @@ function* getArtistSaga(action: ReturnType<typeof getArtist.request>) {
 function* getArtistsSaga(action: ReturnType<typeof getArtists.request>) {
   try {
     const { ids, parameters } = action.payload;
-    const response = yield musicInstance.library.getArtists(ids, parameters);
+    const response = yield musicInstance.api.library.artists(ids, parameters);
 
     const data = response;
 
@@ -87,7 +87,7 @@ function* getArtistsSaga(action: ReturnType<typeof getArtists.request>) {
 function* getPlaylistSaga(action: ReturnType<typeof getPlaylist.request>) {
   try {
     const { id, parameters } = action.payload;
-    const response = yield musicInstance.library.getPlaylist(id, parameters);
+    const response = yield musicInstance.api.library.playlist(id, parameters);
 
     const data = response;
 
@@ -100,7 +100,7 @@ function* getPlaylistSaga(action: ReturnType<typeof getPlaylist.request>) {
 function* getPlaylistsSaga(action: ReturnType<typeof getPlaylists.request>) {
   try {
     const { ids, parameters } = action.payload;
-    const response = yield musicInstance.library.getPlaylists(ids, parameters);
+    const response = yield musicInstance.api.library.playlists(ids, parameters);
 
     const data = response;
 
@@ -113,7 +113,7 @@ function* getPlaylistsSaga(action: ReturnType<typeof getPlaylists.request>) {
 function* getSongSaga(action: ReturnType<typeof getSong.request>) {
   try {
     const { id, parameters } = action.payload;
-    const response = yield musicInstance.library.getSong(id, parameters);
+    const response = yield musicInstance.api.library.song(id, parameters);
 
     const data = response;
 
@@ -126,7 +126,7 @@ function* getSongSaga(action: ReturnType<typeof getSong.request>) {
 function* getSongsSaga(action: ReturnType<typeof getSongs.request>) {
   try {
     const { ids, parameters } = action.payload;
-    const response = yield musicInstance.library.getSongs(ids, parameters);
+    const response = yield musicInstance.api.library.songs(ids, parameters);
 
     const data = response;
 
@@ -139,7 +139,7 @@ function* getSongsSaga(action: ReturnType<typeof getSongs.request>) {
 function* getMusicVideoSaga(action: ReturnType<typeof getMusicVideo.request>) {
   try {
     const { id, parameters } = action.payload;
-    const response = yield musicInstance.library.getMusicVideo(id, parameters);
+    const response = yield musicInstance.api.library.musicVideo(id, parameters);
 
     const data = response;
 
@@ -152,7 +152,7 @@ function* getMusicVideoSaga(action: ReturnType<typeof getMusicVideo.request>) {
 function* getMusicVideosSaga(action: ReturnType<typeof getMusicVideos.request>) {
   try {
     const { ids, parameters } = action.payload;
-    const response = yield musicInstance.library.getMusicVideos(ids, parameters);
+    const response = yield musicInstance.api.library.musicVideos(ids, parameters);
 
     const data = response;
 
@@ -165,7 +165,7 @@ function* getMusicVideosSaga(action: ReturnType<typeof getMusicVideos.request>) 
 function* searchSaga(action: ReturnType<typeof search.request>) {
   try {
     const { term, parameters } = action.payload;
-    const response = yield musicInstance.library.search(term, parameters);
+    const response = yield musicInstance.api.library.search(term, parameters);
 
     const data = response;
 

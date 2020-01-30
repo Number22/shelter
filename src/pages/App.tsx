@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import GlobalStyles from '@app/styles/global';
 import Footer from '../containers/Footer';
+import Artists from '../containers/Artists';
 
 const StyledApp = styled.div``;
 
@@ -13,6 +14,7 @@ const App: FC<IAppProps> = () => {
   return (
     <StyledApp>
       <GlobalStyles />
+      <Artists />
       <Footer />
     </StyledApp>
   );
