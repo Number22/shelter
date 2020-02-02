@@ -1,5 +1,8 @@
 import MusicProvider from '@app/api';
-import { put, takeEvery } from 'redux-saga/effects';
+import flatten from 'lodash/flatten';
+import uniq from 'lodash/uniq';
+import sumBy from 'lodash/sumBy';
+import { all, put, takeEvery } from 'redux-saga/effects';
 import {
   getAlbum,
   getAlbums,
@@ -17,6 +20,7 @@ import {
 const instance = MusicProvider.createInstance();
 instance.configure();
 const musicInstance: MusicKit.MusicKitInstance = instance.getMusicInstance();
+musicInstance.authorize();
 
 export default function* watchChart() {
   yield takeEvery(getAlbum.request, getAlbumSaga);
@@ -62,8 +66,19 @@ function* getArtistSaga(action: ReturnType<typeof getArtist.request>) {
   try {
     const { id, parameters } = action.payload;
     const response = yield musicInstance.api.library.artist(id, parameters);
+    const albumsIds = response.relationships.albums.data.map(item => item.id);
+    const albums = yield all(albumsIds.map(albumId => musicInstance.api.library.album(albumId, { include: 'tracks' })));
 
-    const data = response;
+    const artistAlbums = albums.map(album => {
+      const tracks = album.relationships.tracks.data;
+      const genres = uniq(flatten(tracks.map(track => track.attributes.genreNames)));
+      const duration = Math.round(sumBy(tracks, track => track.attributes.durationInMillis) / 1000 / 60);
+      const releaseDate = tracks.length && tracks[0].attributes.releaseDate;
+
+      return { ...album, attributes: { ...album.attributes, genres, duration, releaseDate } };
+    });
+
+    const data = { ...response, albums: artistAlbums };
 
     yield put(getArtist.success(data));
   } catch (e) {

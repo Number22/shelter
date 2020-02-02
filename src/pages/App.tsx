@@ -6,7 +6,9 @@ import GlobalStyles from '@app/styles/global';
 import Footer from '../containers/Footer';
 import Artists from '../containers/Artists';
 
-const StyledApp = styled.div``;
+const StyledApp = styled.div`
+  height: 100%;
+`;
 
 interface IAppProps {}
 

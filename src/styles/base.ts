@@ -44,9 +44,14 @@ const base = css`
     box-sizing: border-box;
     min-width: 320px;
     display: block;
+    height: 100vh;
     margin: 0;
     -webkit-tap-highlight-color: transparent;
     color: var(--color-black);
+  }
+
+  body > #root {
+    height: 100vh;
   }
 `;
 

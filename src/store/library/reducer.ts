@@ -13,7 +13,12 @@ import {
   search,
 } from '.';
 
+// const LIMIT = 100;
+
 export interface ILibraryState {
+  // albumsOffset: number;
+  // artistsOffset: number;
+  // songsOffset: number;
   musicVideos: MusicKit.Resource[];
   artists: MusicKit.Resource[];
   songs: MusicKit.Resource[];
@@ -29,6 +34,9 @@ export interface ILibraryState {
 }
 
 const initialState: ILibraryState = {
+  // albumsOffset: 0,
+  // artistsOffset: 0,
+  // songsOffset: 0,
   albums: [],
   artists: [],
   musicVideos: [],
@@ -95,12 +103,11 @@ const artistsReducer = createReducer<ILibraryState>(initialState)
   .handleAction(getArtists.request, (state, action) => ({
     ...state,
     isLoading: true,
-    artists: [],
   }))
   .handleAction(getArtists.success, (state, action) => ({
     ...state,
     isLoading: false,
-    artists: action.payload,
+    artists: [...state.artists, ...action.payload],
   }))
   .handleAction(getArtists.failure, (state, action) => ({
     ...state,

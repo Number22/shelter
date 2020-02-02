@@ -70,6 +70,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "connected-react-router": "^6.5.2",
+    "lodash": "^4.17.15",
     "react-range": "^1.5.1",
     "react-redux": "^7.1.1",
     "react-remove-scroll": "^2.2.0",

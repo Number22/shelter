@@ -1,0 +1,72 @@
+import React, { FC } from 'react';
+import styled from 'styled-components';
+
+import Track from './Track';
+
+const LeftPart = styled.div`
+  margin-right: 16px;
+`;
+
+const RightPart = styled.div`
+  flex-grow: 1;
+`;
+
+const Cover = styled.img`
+  width: 200px;
+  height: 200px;
+`;
+
+const Title = styled.h2``;
+
+const Description = styled.span``;
+
+const Header = styled.div`
+  margin-bottom: 8px;
+  cursor: default;
+`;
+
+const Tracks = styled.div``;
+
+const Wrapper = styled.div`
+  display: flex;
+  padding: 32px;
+`;
+
+interface IAlbumProps {
+  attributes: any;
+  tracks: MusicKit.Resource[];
+}
+
+const Album: FC<IAlbumProps> = ({ attributes, tracks }) => {
+  const { name, releaseDate, duration, genres, trackCount, artwork } = attributes;
+  const description = [...genres, releaseDate.split('-')[0]].join(' • ');
+  const artworkUrl = MusicKit.formatArtworkURL(artwork, 200, 200);
+  const albumTracks = tracks.map(({ id, attributes }) => ({
+    id,
+    trackNumber: attributes.trackNumber,
+    name: attributes.name,
+    duration: MusicKit.formatMediaTime(attributes.durationInMillis / 1000, ':'),
+  }));
+
+  return (
+    <Wrapper>
+      <LeftPart>
+        <Cover src={artworkUrl} />
+      </LeftPart>
+
+      <RightPart>
+        <Header>
+          <Title>{name}</Title>
+          <Description>{description}</Description>
+        </Header>
+        <Tracks>
+          {albumTracks.map(track => (
+            <Track key={track.id} {...track} />
+          ))}
+        </Tracks>
+      </RightPart>
+    </Wrapper>
+  );
+};
+
+export default Album;

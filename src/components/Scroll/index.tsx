@@ -1,13 +1,14 @@
 import React, { createRef, FC, ReactNode, RefObject, useEffect, useState } from 'react';
-import { useWindowSize } from 'react-use';
+import { useWindowSize, useDebounce } from 'react-use';
 import SimpleBar from 'simplebar-react';
 import smoothscroll from 'smoothscroll-polyfill';
 import styled from 'styled-components';
 
 smoothscroll.polyfill();
 
-const INFINITE_SCROLL_OFFSET = 150;
+const INFINITE_SCROLL_OFFSET = 500;
 const DEFAULT_SCROLL_MASK_SIZE = 32;
+const DEBOUNCE_TIME_LOAD = 300;
 
 const ScrollWrapper = styled.div<{ isHorizontal: boolean; scrollState: ScrollState; maskSize: number }>`
   height: 100%;
@@ -53,28 +54,39 @@ interface IScrollEvent {
 
 interface IScrollProps {
   children: ReactNode;
-  className: string;
-  isHorizontal: boolean;
-  onLoad: () => void;
-  scroll: RefObject<HTMLDivElement>;
-  scrollMaxHeight: number;
-  maskSize: number;
-  onScroll: (event: IScrollEvent) => void;
+  className?: string;
+  isHorizontal?: boolean;
+  onLoad?: () => void;
+  scroll?: RefObject<HTMLDivElement>;
+  scrollMaxHeight?: number;
+  maskSize?: number;
+  onScroll?: (event: IScrollEvent) => void;
 }
 
 const Scroll: FC<IScrollProps> = ({
   children,
   className,
-  isHorizontal,
-  onLoad,
-  scroll,
+  isHorizontal = false,
+  onLoad = () => false,
+  scroll = createRef(),
   scrollMaxHeight,
-  maskSize,
-  onScroll,
+  maskSize = DEFAULT_SCROLL_MASK_SIZE,
+  onScroll = () => false,
 }) => {
   const windowSize = useWindowSize();
   const defaultScrollState = isHorizontal ? 'none' : 'start';
   const [scrollState, changeScrollState] = useState<ScrollState>(defaultScrollState);
+  const [isLoad, setIsLoad] = useState<boolean>(false);
+
+  useDebounce(
+    () => {
+      if (isLoad) {
+        onLoad();
+      }
+    },
+    DEBOUNCE_TIME_LOAD,
+    [isLoad],
+  );
 
   const wheel = (event: WheelEvent) => {
     if (event.deltaX === 0 && scroll.current) {
@@ -118,9 +130,7 @@ const Scroll: FC<IScrollProps> = ({
       scrollState: currentScrollState,
     });
 
-    if (size + offset + INFINITE_SCROLL_OFFSET >= fullSize && onLoad && fullSize) {
-      onLoad();
-    }
+    setIsLoad(size + offset + INFINITE_SCROLL_OFFSET >= fullSize && Boolean(onLoad) && Boolean(fullSize));
   };
 
   useEffect(() => {
@@ -152,10 +162,6 @@ const Scroll: FC<IScrollProps> = ({
       </StyledScroll>
     </ScrollWrapper>
   );
-};
-
-Scroll.defaultProps = {
-  maskSize: DEFAULT_SCROLL_MASK_SIZE,
 };
 
 export default Scroll;
