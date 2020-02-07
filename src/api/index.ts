@@ -1,6 +1,6 @@
 import { build, developerToken, projectName } from '../constants/music-kit';
 
-export default class MusicProvider {
+class MusicProvider {
   public static createInstance() {
     if (!MusicProvider.instance) {
       MusicProvider.instance = new MusicProvider();
@@ -24,3 +24,10 @@ export default class MusicProvider {
     return window.MusicKit.getInstance();
   }
 }
+
+const instance = MusicProvider.createInstance();
+instance.configure();
+const musicInstance: MusicKit.MusicKitInstance = instance.getMusicInstance();
+musicInstance.authorize();
+
+export default musicInstance;

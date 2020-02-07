@@ -1,4 +1,4 @@
-import MusicProvider from '@app/api';
+import musicInstance from '@app/api';
 import flatten from 'lodash/flatten';
 import uniq from 'lodash/uniq';
 import sumBy from 'lodash/sumBy';
@@ -16,11 +16,6 @@ import {
   getSongs,
   search,
 } from '.';
-
-const instance = MusicProvider.createInstance();
-instance.configure();
-const musicInstance: MusicKit.MusicKitInstance = instance.getMusicInstance();
-musicInstance.authorize();
 
 export default function* watchChart() {
   yield takeEvery(getAlbum.request, getAlbumSaga);
