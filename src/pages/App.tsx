@@ -10,9 +10,7 @@ const StyledApp = styled.div`
   height: 100%;
 `;
 
-interface IAppProps {}
-
-const App: FC<IAppProps> = () => {
+const App: FC = () => {
   return (
     <StyledApp>
       <GlobalStyles />

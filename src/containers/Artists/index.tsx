@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import { getArtists, getArtist } from '@app/store/library';
 import { IRootStateType } from '@app/store/reducers';
+import Loader from '@app/components/Loader';
 
 import Sidebar from './Sidebar';
 import Content from './Content';
@@ -11,7 +12,7 @@ import Content from './Content';
 const LIMIT_SIZE = 100;
 
 const Wrapper = styled.div`
-  height: calc(100% - 100px);
+  height: calc(100% - 57px);
   display: flex;
 `;
 
@@ -22,6 +23,7 @@ const Artists: FC<IArtistsProps> = ({}) => {
   const [offset, setOffset] = useState(0);
   const artists = useSelector((store: IRootStateType) => store.library.artists);
   const currentArtist = useSelector((store: IRootStateType) => store.library.currentArtist);
+  const isLoadingArtist = useSelector((store: IRootStateType) => store.library.isLoadingArtist);
   const artistAlbums = currentArtist ? currentArtist.albums : [];
   const artistName = currentArtist && currentArtist.attributes.name;
 
@@ -37,7 +39,7 @@ const Artists: FC<IArtistsProps> = ({}) => {
   return (
     <Wrapper>
       <Sidebar artists={artists} onLoad={onLoadHandler} onSelect={onSelectHandler} />
-      <Content albums={artistAlbums} artistName={artistName} />
+      {currentArtist ? <Content albums={artistAlbums} artistName={artistName} /> : <Loader />}
     </Wrapper>
   );
 };

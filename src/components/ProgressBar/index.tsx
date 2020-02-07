@@ -1,24 +1,28 @@
 import React, { FC, useState } from 'react';
-import { Range } from 'react-range';
+import { Range, getTrackBackground } from 'react-range';
 import styled from 'styled-components';
 
-const Track = styled.div`
-  height: 8px;
+export const Track = styled.div`
+  height: 3px;
   width: 100%;
-  background: linear-gradient(
-    90deg,
-    rgba(2, 0, 36, 0.5480567226890756) 0%,
-    rgba(9, 9, 121, 0.6012780112044818) 44%,
-    rgba(0, 212, 255, 1) 100%
-  );
-  border-radius: 2px;
+  border-radius: 4px;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 20px;
+    display: block;
+    bottom: -10px;
+  }
 `;
 
 const Thumb = styled.div`
   height: 12px;
-  width: 5px;
+  width: 12px;
+  border-radius: 12px;
   background-color: black;
-  border-radius: 2px;
 `;
 
 const Wrapper = styled.div``;
@@ -33,8 +37,6 @@ interface IProgressBarProps {
 }
 
 const ProgressBar: FC<IProgressBarProps> = ({ className, value, onChange, min, max, step }) => {
-  const [progress, setProgress] = useState(value);
-
   return (
     <Wrapper className={className}>
       <Range
@@ -43,7 +45,22 @@ const ProgressBar: FC<IProgressBarProps> = ({ className, value, onChange, min, m
         max={max}
         values={[value]}
         onChange={values => onChange(values[0])}
-        renderTrack={({ props, children }) => <Track {...props}>{children}</Track>}
+        renderTrack={({ props, children }) => (
+          <Track
+            {...props}
+            style={{
+              ...props.style,
+              background: getTrackBackground({
+                values: [value],
+                colors: ['black', 'var(--border-color)'],
+                min: min as number,
+                max: max as number,
+              }),
+            }}
+          >
+            {children}
+          </Track>
+        )}
         renderThumb={({ props }) => <Thumb />}
       />
     </Wrapper>

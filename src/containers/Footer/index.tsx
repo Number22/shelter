@@ -1,37 +1,40 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import styled, { css } from 'styled-components';
-
-import Button from '@app/components/Button';
 
 import LeftPart from './LeftPart';
 import MainPart from './MainPart';
 import RightPart from './RightPart';
 
 const Wrapper = styled.div`
-  height: 100px;
+  position: relative;
+  border-top: 1px solid var(--border-color);
+  height: 56px;
   width: 100%;
+  background: var(--background-color);
+`;
+
+const BottomPart = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
 `;
 
 const StyledLeftPart = styled(LeftPart)`
-  margin-right: auto;
+  position: absolute;
+  left: 0;
 `;
 
 const StyledRightPart = styled(RightPart)`
-  margin-left: auto;
+  position: absolute;
+  right: 0;
 `;
 
 const StyledMainPart = styled(MainPart)`
   height: 100%;
   min-width: 400px;
-  margin-left: auto;
-  margin-right: auto;
 `;
 
-interface IFooterProps {}
-
-const Footer: FC<IFooterProps> = () => {
+const Footer: FC = () => {
   const onPlayHandle = () => {};
   const onPauseHandle = () => {};
   const onVolumeChangeHandle = (value: number) => {};
@@ -41,16 +44,17 @@ const Footer: FC<IFooterProps> = () => {
 
   return (
     <Wrapper>
-      <StyledLeftPart />
-      <StyledMainPart
-        onVolumeChange={onVolumeChangeHandle}
-        onPause={onPauseHandle}
-        onPlay={onPauseHandle}
-        onProgressChange={onProgressChangeHandle}
-        onForward={onForwardHandle}
-        onBackward={onBackwardHandle}
-      />
-      <StyledRightPart />
+      <BottomPart>
+        <StyledLeftPart />
+        <StyledMainPart
+          onVolumeChange={onVolumeChangeHandle}
+          onPause={onPauseHandle}
+          onPlay={onPauseHandle}
+          onForward={onForwardHandle}
+          onBackward={onBackwardHandle}
+        />
+        <StyledRightPart />
+      </BottomPart>
     </Wrapper>
   );
 };

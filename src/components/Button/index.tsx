@@ -17,7 +17,7 @@ const StyledButton = styled(ReakitButton)<{ theme: Theme }>`
   outline: none;
   border-width: 1px;
   border-style: solid;
-  border-color: #C6C6C6;
+  border-color: var(--border-color);
 
   ${props => props.theme === 'default' && css``}
 

@@ -15,12 +15,7 @@ const Row = styled.div`
   padding: 8px;
 
   &:hover {
-    background: linear-gradient(
-      90deg,
-      rgba(2, 0, 36, 0.5480567226890756) 0%,
-      rgba(9, 9, 121, 0.6012780112044818) 44%,
-      rgba(0, 212, 255, 1) 100%
-    );
+    background: var(--background-color);
   }
 `;
 

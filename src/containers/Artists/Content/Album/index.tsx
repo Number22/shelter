@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
+import Image from '@app/components/Image';
 import Track from './Track';
 
 const LeftPart = styled.div`
@@ -8,10 +9,10 @@ const LeftPart = styled.div`
 `;
 
 const RightPart = styled.div`
-  flex-grow: 1;
+  width: calc(100% - 216px);
 `;
 
-const Cover = styled.img`
+const Cover = styled(Image)`
   width: 200px;
   height: 200px;
 `;
@@ -40,6 +41,7 @@ interface IAlbumProps {
 const Album: FC<IAlbumProps> = ({ attributes, tracks }) => {
   const { name, releaseDate, duration, genres, trackCount, artwork } = attributes;
   const description = [...genres, releaseDate.split('-')[0]].join(' • ');
+  const thumbnailUrl = MusicKit.formatArtworkURL(artwork, 25, 25);
   const artworkUrl = MusicKit.formatArtworkURL(artwork, 200, 200);
   const albumTracks = tracks.map(({ id, attributes }) => ({
     id,
@@ -51,7 +53,7 @@ const Album: FC<IAlbumProps> = ({ attributes, tracks }) => {
   return (
     <Wrapper>
       <LeftPart>
-        <Cover src={artworkUrl} />
+        <Cover src={artworkUrl} thumbnail={thumbnailUrl} />
       </LeftPart>
 
       <RightPart>

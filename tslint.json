@@ -10,7 +10,8 @@
   "jsRules": {},
   "rules": {
     "no-var-requires": false,
-    "prettier": true
+    "prettier": true,
+    "jsx-no-lambda": false
   },
   "rulesDirectory": []
 }

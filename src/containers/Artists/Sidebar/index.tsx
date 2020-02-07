@@ -13,6 +13,7 @@ import List from './List';
 const StyledScroll = styled(Scroll)`
   height: 100%;
   width: 300px;
+  border-right: 1px solid var(--border-color);
 `;
 
 interface ISidebarProps {
