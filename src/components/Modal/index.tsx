@@ -1,7 +1,8 @@
-import React, { useState, useEffect, ReactNode, FC } from 'react';
+import React, { FC, ReactNode, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
-import styled from 'styled-components/macro';
 import { RemoveScroll } from 'react-remove-scroll';
+
+import styled from 'styled-components/macro';
 
 import usePortal from '@app/shared/hooks/usePortal';
 
@@ -100,7 +101,7 @@ Modal.defaultProps = {
   isPortal: true,
   isTransition: true,
   overlayBackground: 'rgba(40, 35, 14, 0.58)',
-  onClose: () => {},
+  onClose: () => false,
   children: null,
   className: undefined,
 };

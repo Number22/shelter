@@ -1,5 +1,6 @@
 import React, { createRef, FC, ReactNode, RefObject, useEffect, useState } from 'react';
-import { useWindowSize, useDebounce } from 'react-use';
+import { useDebounce, useWindowSize } from 'react-use';
+
 import SimpleBar from 'simplebar-react';
 import smoothscroll from 'smoothscroll-polyfill';
 import styled from 'styled-components';
@@ -95,7 +96,7 @@ const Scroll: FC<IScrollProps> = ({
     }
   };
 
-  const spotScrollState = (isHorizontal: boolean) => {
+  const spotScrollState = (isHorizontalScroll: boolean) => {
     if (!scroll.current) {
       return;
     }
@@ -106,7 +107,7 @@ const Scroll: FC<IScrollProps> = ({
     let fullSize = scrollHeight;
     let offset = scrollTop;
 
-    if (isHorizontal) {
+    if (isHorizontalScroll) {
       size = offsetWidth;
       fullSize = scrollWidth;
       offset = scrollLeft;
@@ -144,7 +145,7 @@ const Scroll: FC<IScrollProps> = ({
       return () => scrollEl.removeEventListener('wheel', wheel);
     }
 
-    return () => {};
+    return () => false;
   }, [isHorizontal, scroll]);
 
   return (

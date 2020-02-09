@@ -1,6 +1,13 @@
+import { eventChannel } from 'redux-saga';
+import { call, debounce, put, take, takeEvery } from 'redux-saga/effects';
+
 import musicInstance from '@app/api';
-import { put, takeEvery } from 'redux-saga/effects';
+
 import {
+  changePosition,
+  changeQueue,
+  changeState,
+  changeTime,
   changeToMediaAtIndex,
   changeToMediaItem,
   mute,
@@ -16,29 +23,99 @@ import {
   stop,
 } from '.';
 
-export default function* watchChart() {
-  yield takeEvery(changeToMediaAtIndex.request, changeToMediaAtIndexSaga);
-  yield takeEvery(changeToMediaItem.request, changeToMediaItemSaga);
-  yield takeEvery(play.request, playSaga);
-  yield takeEvery(playLater.request, playLaterSaga);
-  yield takeEvery(playNext.request, playNextSaga);
-  yield takeEvery(prepareToPlay.request, prepareToPlaySaga);
-  yield takeEvery(seekToTime.request, seekToTimeSaga);
-  yield takeEvery(setQueue.request, setQueueSaga);
-  yield takeEvery(skipToNextItem.request, skipToNextItemSaga);
-  yield takeEvery(skipToPreviousItem.request, skipToPreviousItemSaga);
+enum EVENT_TYPES {
+  POSITION = 1,
+  STATE = 2,
+  QUEUE = 3,
+  TIME = 4,
+}
 
-  yield takeEvery(pause, pauseSaga);
-  yield takeEvery(stop, stopSaga);
-  yield takeEvery(mute, muteSaga);
+const changeChannel = () => {
+  return eventChannel(emit => {
+    const positionChangeHandler = data => {
+      emit({ data, type: EVENT_TYPES.POSITION });
+    };
+
+    const stateChangeHandler = ({ oldState, state }) => {
+      emit({
+        data: { state: MusicKit.PlaybackStates[state], oldState: MusicKit.PlaybackStates[oldState] },
+        type: EVENT_TYPES.STATE,
+      });
+    };
+
+    const queueChangeHandler = data => {
+      emit({ data, type: EVENT_TYPES.QUEUE });
+    };
+
+    const timeChangeHandler = ({ currentPlaybackDuration, currentPlaybackTime, currentPlaybackTimeRemaining }) => {
+      emit({
+        data: {
+          duration: currentPlaybackDuration,
+          time: currentPlaybackTime,
+          timeRemaining: currentPlaybackTimeRemaining,
+        },
+        type: EVENT_TYPES.TIME,
+      });
+    };
+
+    musicInstance.player.addEventListener(MusicKit.Events.queueItemsDidChange, queueChangeHandler);
+    musicInstance.player.addEventListener(MusicKit.Events.playbackStateDidChange, stateChangeHandler);
+    musicInstance.player.addEventListener(MusicKit.Events.queuePositionDidChange, positionChangeHandler);
+    musicInstance.player.addEventListener(MusicKit.Events.playbackTimeDidChange, timeChangeHandler);
+
+    const unsubscribe = () => {
+      musicInstance.player.removeEventListener(MusicKit.Events.queuePositionDidChange, positionChangeHandler);
+      musicInstance.player.removeEventListener(MusicKit.Events.playbackStateDidChange, stateChangeHandler);
+      musicInstance.player.removeEventListener(MusicKit.Events.queueItemsDidChange, queueChangeHandler);
+      musicInstance.player.removeEventListener(MusicKit.Events.playbackTimeDidChange, timeChangeHandler);
+    };
+
+    return unsubscribe;
+  });
+};
+
+function* initSaga() {
+  const channel = yield call(changeChannel);
+
+  while (true) {
+    const { data, type } = yield take(channel);
+    switch (type) {
+      case EVENT_TYPES.POSITION: {
+        yield put(changePosition(data));
+        break;
+      }
+      case EVENT_TYPES.QUEUE: {
+        yield put(changeQueue(data));
+        break;
+      }
+      case EVENT_TYPES.STATE: {
+        yield put(changeState(data));
+        break;
+      }
+      case EVENT_TYPES.TIME: {
+        yield put(changeTime(data));
+        break;
+      }
+    }
+  }
 }
 
 function* pauseSaga(action: ReturnType<typeof pause>) {
-  yield musicInstance.player.pause();
+  try {
+    yield musicInstance.player.pause();
+  } catch (e) {
+    // tslint:disable-next-line: no-console
+    console.error(e);
+  }
 }
 
 function* stopSaga(action: ReturnType<typeof stop>) {
-  yield musicInstance.player.stop();
+  try {
+    yield musicInstance.player.stop();
+  } catch (e) {
+    // tslint:disable-next-line: no-console
+    console.error(e);
+  }
 }
 
 function* muteSaga(action: ReturnType<typeof mute>) {
@@ -118,6 +195,7 @@ function* seekToTimeSaga(action: ReturnType<typeof seekToTime.request>) {
 function* setQueueSaga(action: ReturnType<typeof setQueue.request>) {
   try {
     const response = yield musicInstance.setQueue(action.payload);
+    yield musicInstance.play();
 
     yield put(setQueue.success(response));
   } catch (e) {
@@ -127,6 +205,10 @@ function* setQueueSaga(action: ReturnType<typeof setQueue.request>) {
 
 function* skipToNextItemSaga(action: ReturnType<typeof skipToNextItem.request>) {
   try {
+    if (musicInstance.player.isPlaying) {
+      yield put(stop());
+    }
+
     const response = yield musicInstance.player.skipToNextItem();
 
     yield put(skipToNextItem.success(response));
@@ -137,10 +219,32 @@ function* skipToNextItemSaga(action: ReturnType<typeof skipToNextItem.request>) 
 
 function* skipToPreviousItemSaga(action: ReturnType<typeof skipToPreviousItem.request>) {
   try {
+    if (musicInstance.player.isPlaying) {
+      yield put(stop());
+    }
+
     const response = yield musicInstance.player.skipToPreviousItem();
 
     yield put(skipToPreviousItem.success(response));
   } catch (e) {
     yield put(skipToPreviousItem.failure(e));
   }
+}
+
+export default function* watchChart() {
+  yield takeEvery(changeToMediaAtIndex.request, changeToMediaAtIndexSaga);
+  yield takeEvery(changeToMediaItem.request, changeToMediaItemSaga);
+  yield takeEvery(play.request, playSaga);
+  yield takeEvery(playLater.request, playLaterSaga);
+  yield takeEvery(playNext.request, playNextSaga);
+  yield takeEvery(prepareToPlay.request, prepareToPlaySaga);
+  yield debounce(1000, seekToTime.request, seekToTimeSaga);
+  yield takeEvery(setQueue.request, setQueueSaga);
+  yield takeEvery(skipToNextItem.request, skipToNextItemSaga);
+  yield takeEvery(skipToPreviousItem.request, skipToPreviousItemSaga);
+
+  yield takeEvery(pause, pauseSaga);
+  yield takeEvery(stop, stopSaga);
+  yield takeEvery(mute, muteSaga);
+  yield call(initSaga);
 }

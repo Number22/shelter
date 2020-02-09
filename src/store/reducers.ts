@@ -1,6 +1,7 @@
 import { connectRouter, RouterAction, RouterState } from 'connected-react-router';
 import { History } from 'history';
 import { combineReducers, Store } from 'redux';
+
 import { ILibraryState, libraryReducer } from './library/reducer';
 import { IPlayerState, playerReducer } from './player/reducer';
 

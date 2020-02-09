@@ -1,8 +1,10 @@
-import musicInstance from '@app/api';
 import flatten from 'lodash/flatten';
-import uniq from 'lodash/uniq';
 import sumBy from 'lodash/sumBy';
+import uniq from 'lodash/uniq';
 import { all, put, takeEvery } from 'redux-saga/effects';
+
+import musicInstance from '@app/api';
+
 import {
   getAlbum,
   getAlbums,
@@ -59,18 +61,24 @@ function* getAlbumsSaga(action: ReturnType<typeof getAlbums.request>) {
 
 function* getArtistSaga(action: ReturnType<typeof getArtist.request>) {
   try {
-    const { id, parameters } = action.payload;
-    const response = yield musicInstance.api.library.artist(id, parameters);
+    const { id: artistId, parameters } = action.payload;
+    const response = yield musicInstance.api.library.artist(artistId, parameters);
     const albumsIds = response.relationships.albums.data.map(item => item.id);
     const albums = yield all(albumsIds.map(albumId => musicInstance.api.library.album(albumId, { include: 'tracks' })));
 
-    const artistAlbums = albums.map(album => {
-      const tracks = album.relationships.tracks.data;
+    const artistAlbums = albums.map(({ relationships, id, type, href, attributes }) => {
+      const tracks = relationships.tracks.data.map(track => ({
+        ...track,
+        attributes: {
+          ...track.attributes,
+          duration: MusicKit.formatMediaTime(track.attributes.durationInMillis / 1000, ':'),
+        },
+      }));
       const genres = uniq(flatten(tracks.map(track => track.attributes.genreNames)));
-      const duration = Math.round(sumBy(tracks, track => track.attributes.durationInMillis) / 1000 / 60);
+      const duration = Math.round(sumBy(tracks, track => track.attributes.durationInMillis / 1000));
       const releaseDate = tracks.length && tracks[0].attributes.releaseDate;
 
-      return { ...album, attributes: { ...album.attributes, genres, duration, releaseDate } };
+      return { id, type, href, attributes: { ...attributes, genres, duration, releaseDate }, tracks };
     });
 
     const data = { ...response, albums: artistAlbums };

@@ -1,13 +1,11 @@
-import React, { FC, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import styled from 'styled-components';
+import React, { FC } from 'react';
+
 import groupBy from 'lodash/groupBy';
 import map from 'lodash/map';
-
-import { getArtists } from '@app/store/library';
-import { IRootStateType } from '@app/store/reducers';
+import styled from 'styled-components';
 
 import Scroll from '@app/components/Scroll';
+
 import List from './List';
 
 const StyledScroll = styled(Scroll)`

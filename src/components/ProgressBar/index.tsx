@@ -1,5 +1,6 @@
-import React, { FC, useState } from 'react';
-import { Range, getTrackBackground } from 'react-range';
+import React, { FC } from 'react';
+import { getTrackBackground, Range } from 'react-range';
+
 import styled from 'styled-components';
 
 export const Track = styled.div`
@@ -33,10 +34,11 @@ interface IProgressBarProps {
   min?: number;
   max?: number;
   step?: number;
-  onChange: (value: number) => void;
+  onChange?: (value: number) => void;
+  onFinalChange?: (value: number) => void;
 }
 
-const ProgressBar: FC<IProgressBarProps> = ({ className, value, onChange, min, max, step }) => {
+const ProgressBar: FC<IProgressBarProps> = ({ className, value, onChange, onFinalChange, min, max, step }) => {
   return (
     <Wrapper className={className}>
       <Range
@@ -44,7 +46,8 @@ const ProgressBar: FC<IProgressBarProps> = ({ className, value, onChange, min, m
         min={min}
         max={max}
         values={[value]}
-        onChange={values => onChange(values[0])}
+        onFinalChange={values => onFinalChange!(values[0])}
+        onChange={values => onChange!(values[0])}
         renderTrack={({ props, children }) => (
           <Track
             {...props}
@@ -71,6 +74,8 @@ ProgressBar.defaultProps = {
   min: 0,
   max: 100,
   step: 0.1,
+  onChange: () => false,
+  onFinalChange: () => false,
 };
 
 export default ProgressBar;

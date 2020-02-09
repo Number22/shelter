@@ -1,11 +1,19 @@
-import React, { FC, useState } from 'react';
-import styled, { css } from 'styled-components';
+import React, { FC } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import LeftPart from './LeftPart';
+import styled from 'styled-components';
+
+import { pause, play, seekToTime, skipToNextItem, skipToPreviousItem } from '@app/store/player';
+import { IRootStateType } from '@app/store/reducers';
+
+import CurrentSong from './CurrentSong';
 import MainPart from './MainPart';
 import RightPart from './RightPart';
 
 const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
   border-top: 1px solid var(--border-color);
   height: 56px;
@@ -13,19 +21,16 @@ const Wrapper = styled.div`
   background: var(--background-color);
 `;
 
-const BottomPart = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const StyledLeftPart = styled(LeftPart)`
+const StyledCurrentSong = styled(CurrentSong)`
+  height: 100%;
+  width: 320px;
   position: absolute;
   left: 0;
 `;
 
 const StyledRightPart = styled(RightPart)`
   position: absolute;
+  height: 100%;
   right: 0;
 `;
 
@@ -35,26 +40,49 @@ const StyledMainPart = styled(MainPart)`
 `;
 
 const Footer: FC = () => {
-  const onPlayHandle = () => {};
-  const onPauseHandle = () => {};
-  const onVolumeChangeHandle = (value: number) => {};
-  const onProgressChangeHandle = (value: number) => {};
-  const onForwardHandle = () => {};
-  const onBackwardHandle = () => {};
+  const dispatch = useDispatch();
+  const duration = useSelector((store: IRootStateType) => store.player.duration);
+  const time = useSelector((store: IRootStateType) => store.player.time);
+  const timeRemaining = useSelector((store: IRootStateType) => store.player.timeRemaining);
+  const currentItem = useSelector((store: IRootStateType) => store.player.currentItem);
+
+  const onPlayHandler = () => {
+    dispatch(play.request());
+  };
+
+  const onPauseHandler = () => {
+    dispatch(pause());
+  };
+
+  const onProgressChangeHandler = (value: number) => {
+    dispatch(seekToTime.request(value));
+  };
+
+  const onVolumeChangeHandler = (value: number) => value;
+
+  const onForwardHandler = () => {
+    dispatch(skipToNextItem.request());
+  };
+
+  const onBackwardHandler = () => {
+    dispatch(skipToPreviousItem.request());
+  };
 
   return (
     <Wrapper>
-      <BottomPart>
-        <StyledLeftPart />
-        <StyledMainPart
-          onVolumeChange={onVolumeChangeHandle}
-          onPause={onPauseHandle}
-          onPlay={onPauseHandle}
-          onForward={onForwardHandle}
-          onBackward={onBackwardHandle}
-        />
-        <StyledRightPart />
-      </BottomPart>
+      <StyledCurrentSong currentItem={currentItem} />
+      <StyledMainPart
+        duration={duration}
+        time={time}
+        timeRemaining={timeRemaining}
+        onProgressChange={onProgressChangeHandler}
+        onVolumeChange={onVolumeChangeHandler}
+        onPause={onPauseHandler}
+        onPlay={onPlayHandler}
+        onForward={onForwardHandler}
+        onBackward={onBackwardHandler}
+      />
+      <StyledRightPart />
     </Wrapper>
   );
 };

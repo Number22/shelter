@@ -2,7 +2,6 @@ import * as React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 
-import MusicProvider from './api';
 import App from './pages/App';
 import { store } from './store/store';
 

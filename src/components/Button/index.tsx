@@ -1,4 +1,5 @@
-import React, { FC, ReactNode, useEffect } from 'react';
+import React, { FC, ReactNode } from 'react';
+
 import { Button as ReakitButton } from 'reakit';
 import styled, { css } from 'styled-components';
 
@@ -46,8 +47,6 @@ interface IButtonProps {
 }
 
 const Button: FC<IButtonProps> = ({ className, children, disabled, focusable, theme = 'default', onClick }) => {
-  React.useEffect(() => {}, []);
-
   return (
     <StyledButton onClick={onClick} className={className} disabled={disabled} focusable={focusable} theme={theme}>
       <ButtonContent>{children}</ButtonContent>

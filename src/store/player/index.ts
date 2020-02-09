@@ -1,4 +1,13 @@
-import { createAsyncAction, createAction } from 'typesafe-actions';
+import { createAction, createAsyncAction } from 'typesafe-actions';
+
+export const changeState = createAction('@player/CHANGE_STATE')<{ oldState: string; state: string }>();
+export const changeQueue = createAction('@player/CHANGE_QUEUE')<MusicKit.MediaItem[]>();
+export const changePosition = createAction('@player/CHANGE_POSITION')<{ oldPosition: number; position: number }>();
+export const changeTime = createAction('@player/CHANGE_TIME')<{
+  duration: number;
+  time: number;
+  timeRemaining: number;
+}>();
 
 export const pause = createAction('@player/PAUSE')();
 export const stop = createAction('@player/STOP')();

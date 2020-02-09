@@ -135,16 +135,17 @@ const scroll = css`
     position: absolute;
     content: '';
     background: black;
-    border-radius: 0px;
     left: 0;
     right: 0;
     opacity: 0;
     transition: opacity 0.2s linear;
+    border-radius: 4px;
   }
   .simplebar-track .simplebar-scrollbar.simplebar-visible:before {
     /* When hovered, remove all transitions from drag handle */
     opacity: 1;
     transition: opacity 0s linear;
+    border-radius: 4px;
   }
   .simplebar-track.simplebar-vertical {
     top: 0;

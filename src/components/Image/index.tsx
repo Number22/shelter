@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
+
 import styled from 'styled-components';
 
 import Loader from '@app/components/Loader';
@@ -23,7 +24,7 @@ const StyledImage = styled.img<{ isLoading: boolean }>`
 
 interface IImageProps {
   className?: string;
-  src: string;
+  src?: string;
   thumbnail?: string;
 }
 
@@ -32,6 +33,10 @@ const ImageComponent: FC<IImageProps> = ({ className, src, thumbnail }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    if (!src) {
+      return;
+    }
+
     const image = new Image();
     image.onload = (e: Event & { target: { src: string } }) => {
       setCurrentImage(e.target.src);

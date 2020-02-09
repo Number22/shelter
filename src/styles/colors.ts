@@ -1,6 +1,6 @@
 const colors = {
   '--text-color': '#13151C',
-  '--description-color': '#2B303A',
+  '--description-color': '#808080',
   '--primary-color': '#FF5E5B',
   '--background-color': '#f5f5f7',
   '--border-color': '#C5C5C5',

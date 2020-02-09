@@ -1,9 +1,10 @@
 import React, { FC, useState } from 'react';
+
 import styled from 'styled-components';
 
 import Button from '@app/components/Button';
 import ProgressBar from '@app/components/ProgressBar';
-
+import FileAltIcon from '@app/static/icons/file-alt-solid.svg';
 import HeartIcon from '@app/static/icons/heart-solid.svg';
 import AddIcon from '@app/static/icons/plus-solid.svg';
 import RandomIcon from '@app/static/icons/random-solid.svg';
@@ -16,7 +17,19 @@ const STEP_VOLUME = 1;
 
 const StyledButton = styled(Button)`
   width: 40px;
+
+  svg {
+    min-height: 18px;
+    min-width: 18px;
+    transition: all, ease, 0.33s;
+  }
+
+  &:hover {
+    color: #b030b0;
+  }
 `;
+
+const LyricButton = styled(StyledButton)``;
 
 const LikeButton = styled(StyledButton)``;
 
@@ -29,13 +42,15 @@ const AddInLibraryButton = styled(StyledButton)``;
 const AddInPlaylistButton = styled(StyledButton)``;
 
 const VolumeProgressBar = styled(ProgressBar)`
-  width: 184px;
+  width: 224px;
   position: absolute;
-  top: -10px;
+  top: -2px;
   right: 8px;
 `;
 
 const Wrapper = styled.div`
+  position: relative;
+  height: 100%;
   display: flex;
   align-items: center;
 `;
@@ -48,6 +63,7 @@ interface IRightProps {
   onAdd?: () => void;
   onAddToPlaylist?: () => void;
   onVolumeChange?: () => void;
+  onGetLyrics?: () => void;
 }
 
 const RightPart: FC<IRightProps> = ({
@@ -57,6 +73,7 @@ const RightPart: FC<IRightProps> = ({
   onAdd,
   onAddToPlaylist,
   onVolumeChange,
+  onGetLyrics,
   className,
 }) => {
   const [volume, setVolume] = useState<number>(50);
@@ -77,23 +94,27 @@ const RightPart: FC<IRightProps> = ({
       />
 
       <AddInLibraryButton onClick={onAdd} theme="transparent">
-        <AddIcon width={20} height={20} />
+        <AddIcon />
       </AddInLibraryButton>
 
       <AddInPlaylistButton onClick={onAddToPlaylist} theme="transparent">
-        <AddPlaylistIcon width={20} height={20} />
+        <AddPlaylistIcon />
       </AddInPlaylistButton>
 
+      <LyricButton onClick={onGetLyrics} theme="transparent">
+        <FileAltIcon />
+      </LyricButton>
+
       <LikeButton onClick={onLike} theme="transparent">
-        <HeartIcon width={20} height={20} />
+        <HeartIcon />
       </LikeButton>
 
       <RepeatButton onClick={onRepeat} theme="transparent">
-        <RepeatIcon width={20} height={20} />
+        <RepeatIcon />
       </RepeatButton>
 
       <RandomButton onClick={onRandom} theme="transparent">
-        <RandomIcon width={20} height={20} />
+        <RandomIcon />
       </RandomButton>
     </Wrapper>
   );

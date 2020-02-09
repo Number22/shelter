@@ -1,5 +1,10 @@
 import { createReducer } from 'typesafe-actions';
+
 import {
+  changePosition,
+  changeQueue,
+  changeState,
+  changeTime,
   changeToMediaAtIndex,
   changeToMediaItem,
   play,
@@ -13,16 +18,55 @@ import {
 } from '.';
 
 export interface IPlayerState {
+  isDenyUpdate: boolean;
+  duration: number;
+  time: number;
+  timeRemaining: number;
+  oldPosition: number;
+  position: number;
+  oldState: string;
+  state: string;
+  currentItem: MusicKit.MediaItem | null;
+  queue: MusicKit.MediaItem[];
   isLoading: boolean;
   itemPosition?: MusicKit.MediaItemPosition;
   error?: Error;
 }
 
 const initialState: IPlayerState = {
+  isDenyUpdate: false,
+  duration: 0,
+  time: 0,
+  timeRemaining: 0,
+  oldPosition: 0,
+  position: 0,
+  currentItem: null,
+  oldState: '',
+  state: '',
+  queue: [],
   isLoading: false,
   itemPosition: undefined,
   error: undefined,
 };
+
+const stateReducer = createReducer<IPlayerState>(initialState)
+  .handleAction(changePosition, (state, action) => ({
+    ...state,
+    ...action.payload,
+    currentItem: state.queue.length ? state.queue[action.payload.position] : null,
+  }))
+  .handleAction(changeTime, (state, action) => ({
+    ...state,
+    ...action.payload,
+  }))
+  .handleAction(changeQueue, (state, action) => ({
+    ...state,
+    queue: action.payload,
+  }))
+  .handleAction(changeState, (state, action) => ({
+    ...state,
+    ...action.payload,
+  }));
 
 const playReducer = createReducer<IPlayerState>(initialState)
   .handleAction(play.request, (state, action) => ({
@@ -55,15 +99,19 @@ const prepareToPlayReducer = createReducer<IPlayerState>(initialState)
 const seekToTimeReducer = createReducer<IPlayerState>(initialState)
   .handleAction(seekToTime.request, (state, action) => ({
     ...state,
+    currentPlaybackTime: action.payload,
+    isDenyUpdate: true,
     isLoading: true,
   }))
   .handleAction(seekToTime.success, (state, action) => ({
     ...state,
     isLoading: false,
+    isDenyUpdate: false,
   }))
   .handleAction(seekToTime.failure, (state, action) => ({
     ...state,
     isLoading: false,
+    isDenyUpdate: false,
   }));
 
 const skipToNextItemReducer = createReducer<IPlayerState>(initialState)
@@ -165,6 +213,7 @@ const playNextReducer = createReducer<IPlayerState>(initialState)
   }));
 
 export const playerReducer = createReducer<IPlayerState>(initialState, {
+  ...stateReducer.handlers,
   ...playReducer.handlers,
   ...prepareToPlayReducer.handlers,
   ...seekToTimeReducer.handlers,

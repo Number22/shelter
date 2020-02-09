@@ -1,24 +1,23 @@
-import React, { FC, useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { FC, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import styled from 'styled-components';
 
-import { getArtists, getArtist } from '@app/store/library';
-import { IRootStateType } from '@app/store/reducers';
 import Loader from '@app/components/Loader';
+import { getArtist, getArtists } from '@app/store/library';
+import { IRootStateType } from '@app/store/reducers';
 
-import Sidebar from './Sidebar';
 import Content from './Content';
+import Sidebar from './Sidebar';
 
 const LIMIT_SIZE = 100;
 
 const Wrapper = styled.div`
-  height: calc(100% - 57px);
+  height: calc(100% - 56px);
   display: flex;
 `;
 
-interface IArtistsProps {}
-
-const Artists: FC<IArtistsProps> = ({}) => {
+const Artists: FC = ({}) => {
   const dispatch = useDispatch();
   const [offset, setOffset] = useState(0);
   const artists = useSelector((store: IRootStateType) => store.library.artists);

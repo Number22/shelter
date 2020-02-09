@@ -1,10 +1,12 @@
 import React, { FC } from 'react';
 import { hot } from 'react-hot-loader';
+
 import styled from 'styled-components';
 
 import GlobalStyles from '@app/styles/global';
-import Footer from '../containers/Footer';
+
 import Artists from '../containers/Artists';
+import Footer from '../containers/Footer';
 
 const StyledApp = styled.div`
   height: 100%;
