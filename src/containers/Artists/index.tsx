@@ -22,7 +22,6 @@ const Artists: FC = ({}) => {
   const [offset, setOffset] = useState(0);
   const artists = useSelector((store: IRootStateType) => store.library.artists);
   const currentArtist = useSelector((store: IRootStateType) => store.library.currentArtist);
-  const isLoadingArtist = useSelector((store: IRootStateType) => store.library.isLoadingArtist);
   const artistAlbums = currentArtist ? currentArtist.albums : [];
   const artistName = currentArtist && currentArtist.attributes.name;
 

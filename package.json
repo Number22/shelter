@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "yarn run clean-dist && webpack -p --config=configs/webpack/prod.js",
-    "lint": "tslint './src/**/*.{js,ts,tsx}' --format stylish --project . --force --quiet --fix",
+    "lint": "tslint './src/**/*.{js,ts,tsx}' --format stylish --project . --fix",
     "lint:css": "stylelint './src/**/*.tsx'",
     "start": "yarn run start-dev",
     "start-dev": "webpack-dev-server --config=configs/webpack/dev.js --https",
@@ -20,7 +20,7 @@
   },
   "lint-staged": {
     "**/*.ts?(x)": [
-      "tslint --fix",
+      "yarn lint",
       "git add"
     ]
   },
