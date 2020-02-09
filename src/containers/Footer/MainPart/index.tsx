@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 
 import styled from 'styled-components';
 
@@ -67,6 +67,7 @@ interface IMainPartProps {
   time: number;
   timeRemaining: number;
   duration: number;
+  playerState: MusicKit.PlaybackStates;
   onProgressChange: (value: number) => void;
   onVolumeChange: (value: number) => void;
   onPlay: () => void;
@@ -82,6 +83,7 @@ const MainPart: FC<IMainPartProps> = ({
   onPause,
   onForward,
   onBackward,
+  playerState,
   time = 0,
   timeRemaining = 0,
   duration = 0,
@@ -89,20 +91,18 @@ const MainPart: FC<IMainPartProps> = ({
 }) => {
   const remainingTime = MusicKit.formatMediaTime(timeRemaining, ':');
   const pastTime = MusicKit.formatMediaTime(time, ':');
-  const [isPlay, setIsPlay] = useState<boolean>(true);
+  const isPlay = playerState === MusicKit.PlaybackStates.playing;
 
   const changeProgressHandler = (value: number) => {
     onProgressChange(value);
   };
 
   const playHandler = () => {
-    const newState = !isPlay;
-    if (newState) {
-      onPlay();
-    } else {
+    if (isPlay) {
       onPause();
+    } else {
+      onPlay();
     }
-    setIsPlay(newState);
   };
 
   return (

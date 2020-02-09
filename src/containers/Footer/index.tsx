@@ -45,6 +45,7 @@ const Footer: FC = () => {
   const time = useSelector((store: IRootStateType) => store.player.time);
   const timeRemaining = useSelector((store: IRootStateType) => store.player.timeRemaining);
   const currentItem = useSelector((store: IRootStateType) => store.player.currentItem);
+  const playerState = useSelector((store: IRootStateType) => store.player.state);
 
   const onPlayHandler = () => {
     dispatch(play.request());
@@ -72,6 +73,7 @@ const Footer: FC = () => {
     <Wrapper>
       <StyledCurrentSong currentItem={currentItem} />
       <StyledMainPart
+        playerState={playerState}
         duration={duration}
         time={time}
         timeRemaining={timeRemaining}

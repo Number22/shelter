@@ -36,9 +36,9 @@ const changeChannel = () => {
       emit({ data, type: EVENT_TYPES.POSITION });
     };
 
-    const stateChangeHandler = ({ oldState, state }) => {
+    const stateChangeHandler = data => {
       emit({
-        data: { state: MusicKit.PlaybackStates[state], oldState: MusicKit.PlaybackStates[oldState] },
+        data,
         type: EVENT_TYPES.STATE,
       });
     };
