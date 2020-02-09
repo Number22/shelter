@@ -42,10 +42,6 @@ const Description = styled.span`
   text-overflow: ellipsis;
 `;
 
-const StyledButton = styled(Button)`
-  width: 40px;
-`;
-
 const Wrapper = styled.div`
   display: flex;
   align-items: center;

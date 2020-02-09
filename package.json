@@ -15,8 +15,14 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn lint"
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "**/*.ts?(x)": [
+      "tslint --fix",
+      "git add"
+    ]
   },
   "devDependencies": {
     "@babel/cli": "^7.6.4",
@@ -40,6 +46,7 @@
     "image-webpack-loader": "^6.0.0",
     "jest": "^24.9.0",
     "jest-styled-components": "^7.0.0-beta.1",
+    "lint-staged": "^10.0.7",
     "musickit-typescript": "^1.2.4",
     "prettier": "^1.18.2",
     "pretty-quick": "^2.0.0",
