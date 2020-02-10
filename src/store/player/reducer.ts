@@ -24,10 +24,10 @@ export interface IPlayerState {
   timeRemaining: number;
   oldPosition: number;
   position: number;
-  oldState: string;
-  state: string;
-  currentItem: MusicKit.MediaItem | null;
-  queue: MusicKit.MediaItem[];
+  oldState: MusicKit.PlaybackStates;
+  state: MusicKit.PlaybackStates;
+  currentItem: MusicKit.Media | null;
+  queue: MusicKit.Media[];
   isLoading: boolean;
   itemPosition?: MusicKit.MediaItemPosition;
   error?: Error;
@@ -41,8 +41,8 @@ const initialState: IPlayerState = {
   oldPosition: 0,
   position: 0,
   currentItem: null,
-  oldState: '',
-  state: '',
+  oldState: 0,
+  state: 0,
   queue: [],
   isLoading: false,
   itemPosition: undefined,

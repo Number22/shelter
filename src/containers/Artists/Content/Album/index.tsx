@@ -73,7 +73,7 @@ const Album: FC<IAlbumProps> = ({ attributes, tracks, id }) => {
   const formatDuration = MusicKit.formatMediaTime(duration, ':');
 
   const onTrackClickHandler = (startPosition: number) => {
-    dispatch(setQueue.request({ album: id, startPosition }));
+    dispatch(setQueue.request({ album: id, startPosition, items: [] }));
   };
 
   return (

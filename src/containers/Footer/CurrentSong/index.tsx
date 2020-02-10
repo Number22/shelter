@@ -48,10 +48,10 @@ const Wrapper = styled.div`
 
 interface ICurrentSongProps {
   className?: string;
-  currentItem: MusicKit.MediaItem | null;
+  currentItem: MusicKit.Media | null;
 }
 
-const CurrentSong: FC<ICurrentSongProps> = ({ onGetLyrics, className, currentItem }) => {
+const CurrentSong: FC<ICurrentSongProps> = ({ className, currentItem }) => {
   if (!currentItem) {
     return null;
   }

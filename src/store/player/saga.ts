@@ -58,16 +58,16 @@ const changeChannel = () => {
       });
     };
 
-    musicInstance.player.addEventListener(MusicKit.Events.queueItemsDidChange, queueChangeHandler);
-    musicInstance.player.addEventListener(MusicKit.Events.playbackStateDidChange, stateChangeHandler);
-    musicInstance.player.addEventListener(MusicKit.Events.queuePositionDidChange, positionChangeHandler);
-    musicInstance.player.addEventListener(MusicKit.Events.playbackTimeDidChange, timeChangeHandler);
+    musicInstance.addEventListener(MusicKit.Events.queueItemsDidChange, queueChangeHandler);
+    musicInstance.addEventListener(MusicKit.Events.playbackStateDidChange, stateChangeHandler);
+    musicInstance.addEventListener(MusicKit.Events.queuePositionDidChange, positionChangeHandler);
+    musicInstance.addEventListener(MusicKit.Events.playbackTimeDidChange, timeChangeHandler);
 
     const unsubscribe = () => {
-      musicInstance.player.removeEventListener(MusicKit.Events.queuePositionDidChange, positionChangeHandler);
-      musicInstance.player.removeEventListener(MusicKit.Events.playbackStateDidChange, stateChangeHandler);
-      musicInstance.player.removeEventListener(MusicKit.Events.queueItemsDidChange, queueChangeHandler);
-      musicInstance.player.removeEventListener(MusicKit.Events.playbackTimeDidChange, timeChangeHandler);
+      musicInstance.removeEventListener(MusicKit.Events.queuePositionDidChange, positionChangeHandler);
+      musicInstance.removeEventListener(MusicKit.Events.playbackStateDidChange, stateChangeHandler);
+      musicInstance.removeEventListener(MusicKit.Events.queueItemsDidChange, queueChangeHandler);
+      musicInstance.removeEventListener(MusicKit.Events.playbackTimeDidChange, timeChangeHandler);
     };
 
     return unsubscribe;

@@ -62,7 +62,7 @@ interface IRightProps {
   onLike?: () => void;
   onAdd?: () => void;
   onAddToPlaylist?: () => void;
-  onVolumeChange?: () => void;
+  onVolumeChange: (value: number) => void;
   onGetLyrics?: () => void;
 }
 

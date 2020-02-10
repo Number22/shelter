@@ -84,7 +84,7 @@ const Footer: FC = () => {
         onForward={onForwardHandler}
         onBackward={onBackwardHandler}
       />
-      <StyledRightPart />
+      <StyledRightPart onVolumeChange={onVolumeChangeHandler} />
     </Wrapper>
   );
 };

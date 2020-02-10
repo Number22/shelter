@@ -83,6 +83,7 @@
       }
     ],
     "only-arrow-functions": true,
+    "no-namespace": false,
     "no-unused-variable": [true, {"ignore-pattern": "^_"}],
     "no-any": { "severity": "warning" }
   },
