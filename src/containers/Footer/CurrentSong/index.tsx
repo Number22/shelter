@@ -11,9 +11,7 @@ const SongWrapper = styled.div`
 `;
 
 const Cover = styled(Image)`
-  top: -1px;
-  height: 56px;
-  width: 56px;
+  width: 55px;
   margin-right: 8px;
 `;
 
@@ -35,7 +33,7 @@ const Title = styled.span`
 
 const Description = styled.span`
   font-size: 12px;
-  color: var(--description-color);
+  color: var(--color-1);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -65,7 +63,7 @@ const CurrentSong: FC<ICurrentSongProps> = ({ className, currentItem }) => {
   return (
     <Wrapper className={className}>
       <SongWrapper>
-        <Cover src={artworkUrl} />
+        <Cover key={artworkUrl} src={artworkUrl} />
         <SongInfo>
           <Title title={title}>{title}</Title>
           <Description title={albumInfo}>{albumInfo}</Description>

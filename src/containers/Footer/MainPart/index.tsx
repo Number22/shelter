@@ -14,7 +14,7 @@ const StyledButton = styled(Button)`
 `;
 
 const PlayButton = styled(StyledButton)`
-  width: 56px;
+  width: 48px;
   height: 48px;
   padding-top: 0px;
   margin-top: 7px;
@@ -115,15 +115,15 @@ const MainPart: FC<IMainPartProps> = ({
 
       <PlayerControls>
         <BackwardButton onClick={onBackward} theme="transparent">
-          <BackwardIcon width={20} height={20} />
+          <BackwardIcon width={16} height={16} />
         </BackwardButton>
 
         <PlayButton theme="transparent" onClick={playHandler}>
-          {isPlay ? <PauseIcon width={32} height={32} /> : <PlayIcon width={32} height={32} />}
+          {isPlay ? <PauseIcon width={28} height={28} /> : <PlayIcon width={28} height={28} />}
         </PlayButton>
 
         <ForwardButton onClick={onForward} theme="transparent">
-          <ForwardIcon width={20} height={20} />
+          <ForwardIcon width={16} height={16} />
         </ForwardButton>
       </PlayerControls>
     </Wrapper>

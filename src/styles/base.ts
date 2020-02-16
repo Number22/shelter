@@ -34,7 +34,7 @@ const base = css`
   button {
     background: transparent;
     font-size: inherit;
-    color: var(--text-color);
+    color: var(--color-1);
   }
   input[type='text'] {
     appearance: none;
@@ -48,7 +48,7 @@ const base = css`
     height: 100vh;
     margin: 0;
     -webkit-tap-highlight-color: transparent;
-    color: var(--text-color);
+    color: var(--color-1);
   }
 
   body > #root {

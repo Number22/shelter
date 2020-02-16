@@ -2,7 +2,7 @@ import React, { FC, ReactNode, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { RemoveScroll } from 'react-remove-scroll';
 
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
 
 import usePortal from '@app/shared/hooks/usePortal';
 
@@ -13,7 +13,7 @@ const ModalBody = styled.div`
   z-index: 1000;
   top: 50%;
   left: 50%;
-  background: var(--color-white);
+  background: var(--color-5);
   box-shadow: 0px 4px 30px rgba(108, 72, 0, 0.2);
   border-radius: 4px;
 `;
@@ -44,20 +44,20 @@ interface IModalProps {
   children: ReactNode;
   onClose: () => void;
   className?: string;
-  overlayBackground: string;
-  isPortal: boolean;
-  isDisableScroll: boolean;
-  isTransition: boolean;
+  overlayBackground?: string;
+  isPortal?: boolean;
+  isDisableScroll?: boolean;
+  isTransition?: boolean;
 }
 
 const Modal: FC<IModalProps> = ({
   children,
   onClose,
   className,
-  overlayBackground,
-  isPortal,
-  isDisableScroll,
-  isTransition,
+  overlayBackground = 'rgba(40, 35, 14, 0.58)',
+  isPortal = true,
+  isDisableScroll = true,
+  isTransition = true,
 }) => {
   const [fadeType, setFadeType] = useState<FadeType>('out');
   const target = usePortal('modal-root');

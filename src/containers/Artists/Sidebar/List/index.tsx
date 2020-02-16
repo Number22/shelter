@@ -1,36 +1,45 @@
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 
+import { Tabbable } from 'reakit';
 import styled, { css } from 'styled-components';
 
 import { IRootStateType } from '@app/store/reducers';
 
 const Wrapper = styled.div``;
 
-const Row = styled.div<{ isActive?: boolean }>`
+const RowWrapper = styled.ul``;
+
+const Row = styled(Tabbable)<{ isActive?: boolean; forwardedAs: string }>`
   cursor: pointer;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding: 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-right: 32px;
+  padding-left: 8px;
+  outline: none;
 
-  &:hover {
-    background: var(--hover-color);
+  &:hover,
+  &:focus {
+    background: var(--color-4);
   }
 
   ${props =>
     props.isActive &&
     css`
-      background: var(--text-color);
-      color: var(--background-color);
+      background: var(--color-2);
+      color: var(--color-5);
 
+      &:focus,
       &:hover {
-        background: var(--text-color);
+        background: var(--color-2);
       }
     `}
 `;
 
-const Letter = styled.p`
+const Letter = styled.h2`
   font-size: 40px;
   cursor: default;
   user-select: none;
@@ -50,11 +59,18 @@ const List: FC<IListProps> = ({ items, letter, onSelect }) => {
   return (
     <Wrapper>
       <Letter>{letter}</Letter>
-      {items.map(({ attributes, id }) => (
-        <Row isActive={currentArtist && currentArtist.id === id} onClick={() => onSelect(id)} key={attributes.name}>
-          {attributes.name}
-        </Row>
-      ))}
+      <RowWrapper>
+        {items.map(({ attributes, id }) => (
+          <Row
+            forwardedAs="li"
+            isActive={currentArtist && currentArtist.id === id}
+            key={attributes.name}
+            onClick={() => onSelect(id)}
+          >
+            {attributes.name}
+          </Row>
+        ))}
+      </RowWrapper>
     </Wrapper>
   );
 };

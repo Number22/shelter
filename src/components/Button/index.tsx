@@ -5,6 +5,12 @@ import styled, { css } from 'styled-components';
 
 type Theme = 'default' | 'transparent' | 'primary';
 
+const ButtonContent = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 const StyledButton = styled(ReakitButton)<{ theme: Theme }>`
   cursor: pointer;
   padding-right: 8px;
@@ -18,7 +24,8 @@ const StyledButton = styled(ReakitButton)<{ theme: Theme }>`
   outline: none;
   border-width: 1px;
   border-style: solid;
-  border-color: var(--border-color);
+  border-color: var(--color-1);
+  transition: color ease .33s;
 
   ${props => props.theme === 'default' && css``}
 
@@ -26,15 +33,13 @@ const StyledButton = styled(ReakitButton)<{ theme: Theme }>`
     props.theme === 'transparent' &&
     css`
       border-color: transparent;
+
+      &:hover {
+        color: var(--color-2);
+      }
     `}
 
   ${props => props.theme === 'primary' && css``}
-`;
-
-const ButtonContent = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;
 
 interface IButtonProps {

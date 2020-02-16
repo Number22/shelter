@@ -50,7 +50,9 @@ const Duration = styled.span``;
 
 const SongsCount = styled.span``;
 
-const Tracks = styled.div``;
+const Tracks = styled.ul`
+  display: block;
+`;
 
 const Wrapper = styled.div`
   display: flex;
@@ -58,12 +60,13 @@ const Wrapper = styled.div`
 `;
 
 interface IAlbumProps {
+  className?: string;
   attributes: any;
   id: string;
   tracks: MusicKit.Resource[];
 }
 
-const Album: FC<IAlbumProps> = ({ attributes, tracks, id }) => {
+const Album: FC<IAlbumProps> = ({ attributes, tracks, id, className }) => {
   const dispatch = useDispatch();
   const currentItem = useSelector((store: IRootStateType) => store.player.currentItem);
   const { name, releaseDate, duration, genres, trackCount, artwork } = attributes;

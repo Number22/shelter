@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 
+import { Tabbable } from 'reakit';
 import styled, { css } from 'styled-components';
 
 const Title = styled.span`
@@ -27,7 +28,7 @@ const LeftPart = styled.div`
 
 const RightPart = styled.div``;
 
-const Wrapper = styled.div<{ isActive: boolean }>`
+const Wrapper = styled(Tabbable)<{ isActive: boolean; forwardedAs: string }>`
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -37,29 +38,31 @@ const Wrapper = styled.div<{ isActive: boolean }>`
   padding-right: 8px;
   padding-top: 8px;
   padding-bottom: 8px;
-  border-radius: 2px;
   cursor: pointer;
+  outline: none;
 
-  &:hover {
-    background: var(--hover-color);
+  &:hover,
+  &:focus {
+    background: var(--color-4);
   }
 
   ${props =>
     props.isActive &&
     css`
-      background: var(--text-color);
-      color: var(--background-color);
+      background: var(--color-2);
+      color: var(--color-5);
 
-      &:hover {
-        background: var(--text-color);
+      &:hover,
+      &:focus {
+        background: var(--color-2);
       }
 
       ${TrackNumber} {
-        color: var(--hover-color);
+        color: var(--color-5);
       }
 
       ${Duration} {
-        color: var(--hover-color);
+        color: var(--color-5);
       }
     `}
 `;
@@ -74,7 +77,7 @@ interface ITrackProps {
 
 const Track: FC<ITrackProps> = ({ trackNumber, name, duration, onClick, isActive }) => {
   return (
-    <Wrapper isActive={isActive} onClick={onClick}>
+    <Wrapper forwardedAs="li" isActive={isActive} onClick={onClick} tabIndex={1}>
       <LeftPart>
         <TrackNumber>{trackNumber}</TrackNumber>
         <Title title={name}>{name}</Title>

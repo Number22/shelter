@@ -15,10 +15,10 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
-  border-top: 1px solid var(--border-color);
+  border-top: 1px solid var(--color-7);
   height: 56px;
   width: 100%;
-  background: var(--background-color);
+  background: var(--color-5);
 `;
 
 const StyledCurrentSong = styled(CurrentSong)`

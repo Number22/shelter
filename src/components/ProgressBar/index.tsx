@@ -23,7 +23,11 @@ const Thumb = styled.div`
   height: 12px;
   width: 12px;
   border-radius: 12px;
-  background-color: black;
+  background-color: var(--color-1);
+
+  &:hover {
+    background: var(--color-2);
+  }
 `;
 
 const Wrapper = styled.div``;
@@ -55,7 +59,7 @@ const ProgressBar: FC<IProgressBarProps> = ({ className, value, onChange, onFina
               ...props.style,
               background: getTrackBackground({
                 values: [value],
-                colors: ['black', 'var(--border-color)'],
+                colors: ['var(--color-1)', 'var(--color-1)'],
                 min: min as number,
                 max: max as number,
               }),

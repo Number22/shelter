@@ -13,9 +13,13 @@ import Sidebar from './Sidebar';
 const LIMIT_SIZE = 100;
 
 const Wrapper = styled.div`
-  height: calc(100% - 56px);
+  height: 100%;
   display: flex;
 `;
+
+const StyledContent = styled(Content)``;
+
+const StyledSidebar = styled(Sidebar)``;
 
 const Artists: FC = ({}) => {
   const dispatch = useDispatch();
@@ -36,8 +40,8 @@ const Artists: FC = ({}) => {
 
   return (
     <Wrapper>
-      <Sidebar artists={artists} onLoad={onLoadHandler} onSelect={onSelectHandler} />
-      {currentArtist ? <Content albums={artistAlbums} artistName={artistName} /> : <Loader />}
+      <StyledSidebar artists={artists} onLoad={onLoadHandler} onSelect={onSelectHandler} />
+      {currentArtist ? <StyledContent albums={artistAlbums} artistName={artistName} /> : <Loader />}
     </Wrapper>
   );
 };

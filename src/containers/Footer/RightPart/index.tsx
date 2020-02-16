@@ -19,13 +19,10 @@ const StyledButton = styled(Button)`
   width: 40px;
 
   svg {
-    min-height: 18px;
-    min-width: 18px;
-    transition: all, ease, 0.33s;
-  }
-
-  &:hover {
-    color: #b030b0;
+    max-height: 16px;
+    max-width: 16px;
+    min-height: 16px;
+    min-width: 16px;
   }
 `;
 
